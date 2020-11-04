@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnSpa.Web.Data.Entities
@@ -17,8 +18,10 @@ namespace OnSpa.Web.Data.Entities
 
         public Collection<Appointment> Appointments { get; set; }
 
-        public ServiceType ServiceType { get; set; }
 
         public Collection<ServiceType> ServiceTypes { get; set; }
+
+        [Display(Name = "Image")]
+        public Guid ImageId { get; set; }
     }
 }

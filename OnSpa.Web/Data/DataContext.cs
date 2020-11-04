@@ -11,5 +11,15 @@ namespace OnSpa.Web.Data
 
         public DbSet<Appointment> Appointments { get; set; }
 
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
+
+        
+        public DbSet<Campus> Campuses { get; set; }
+
+        public DbSet<Service> Services { get; set; }
+       
+
     }
 }
