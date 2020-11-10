@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,12 +17,14 @@ namespace OnSpa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Price { get; set; }
 
+        
+        [Display(Name = "Image")]
+        public Guid ImageId { get; set; }
+
         public Collection<Appointment> Appointments { get; set; }
 
 
         public Collection<ServiceType> ServiceTypes { get; set; }
 
-        [Display(Name = "Image")]
-        public Guid ImageId { get; set; }
     }
 }

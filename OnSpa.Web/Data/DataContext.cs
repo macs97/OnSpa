@@ -36,7 +36,6 @@ namespace OnSpa.Web.Data
             modelBuilder.Entity<Campus>()
                 .HasIndex(t => t.Name)
                 .IsUnique();
-
         }
     }
 }

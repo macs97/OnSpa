@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace OnSpa.Web.Data.Entities
 {
@@ -25,12 +26,9 @@ namespace OnSpa.Web.Data.Entities
 
         [Display(Name = "Image")]
         public Guid ImageId { get; set; }
-
-
         //TODO:adicionar url para alamacenar inamgenes;
 
-
-        public Campus Campus { get; set; }
+        public ICollection<Appointment> Appointments { get; set; }
 
     }
 }

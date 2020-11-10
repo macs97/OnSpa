@@ -332,7 +332,7 @@ namespace OnSpa.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddChurch(Campus campus)
+        public async Task<IActionResult> AddCampus(Campus campus)
         {
             if (ModelState.IsValid)
             {
@@ -373,7 +373,7 @@ namespace OnSpa.Web.Controllers
             return View(campus);
         }
 
-        public async Task<IActionResult> EditChurch(int? id)
+        public async Task<IActionResult> EditCampus(int? id)
         {
             if (id == null)
             {
@@ -423,7 +423,7 @@ namespace OnSpa.Web.Controllers
             return View(campus);
         }
 
-        public async Task<IActionResult> DeleteChurch(int? id)
+        public async Task<IActionResult> DeleteCampus(int? id)
         {
             if (id == null)
             {
