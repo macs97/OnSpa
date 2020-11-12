@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using OnSpa.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,9 +27,26 @@ namespace OnSpa.Web.Data.Entities
 
         [Display(Name = "Image")]
         public Guid ImageId { get; set; }
-        //TODO:adicionar url para alamacenar inamgenes;
+        public string ImageFullPath => ImageId == Guid.Empty
+          // ? "https://localhost:44374/images/noimage.png"
+          ? $"https://onchurch.azurewebsites.net/images/noimage.png" // falta organizar
+          : $"https://onchurchtaller.blob.core.windows.net/users/{ImageId}";
 
         public ICollection<Appointment> Appointments { get; set; }
+
+
+        [Display(Name = "User Type")]
+        public UserType UserType { get; set; }
+
+
+        public Campus campus { get; set; }
+
+        [Display(Name = "User")]
+        public string FullName => $"{FirstName} {LastName}";
+
+        [Display(Name = "User")]
+        public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
+
 
     }
 }

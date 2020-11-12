@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using OnSpa.Common.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,6 +15,20 @@ namespace OnSpa.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Name { get; set; }
 
+        [JsonIgnore]
+        [NotMapped]
+        public int IdDeparment { get; set; }
+
+        [JsonIgnore]
+        public Department Departments { get; set; }
+
+        [JsonIgnore]
+        [NotMapped]
+        public ICollection<UserType> Users { get; set; }
+
+        [JsonIgnore]  
+        [Display(Name = "# Users")]
+        public int UsersNumber => Users == null ? 0 : Users.Count;
         [JsonIgnore]
         [NotMapped]
         public int IdCity { get; set; }
