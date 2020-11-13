@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnSpa.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DepartmentsController : Controller
     {
         private readonly DataContext _context;

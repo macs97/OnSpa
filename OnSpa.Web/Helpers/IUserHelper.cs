@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using OnSpa.Web.Data.Entities;
+using OnSpa.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace OnSpa.Web.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task LogoutAsync();
+
 
     }
 }

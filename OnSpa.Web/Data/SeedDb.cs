@@ -1,4 +1,5 @@
-﻿using OnSpa.Web.Data.Entities;
+﻿using OnSpa.Common.Enums;
+using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,49 @@ namespace OnSpa.Web.Data
         {
             await _context.Database.EnsureCreatedAsync();
             await CheckDeparmentsAsync();
+            await CheckRolesAsync();
+            await CheckUserAsync("1010", "Esneider", "Cano", "esneiderclon17@gmail.com", "322 311 4620", "Calle Luna Calle Sol", UserType.Admin);
+            await CheckUserAsync("1011", "Marcela", "Cardona", "marcela@yopmail.com", "322 315 4620", "Calle estrella Calle Sol", UserType.Admin);
+            await CheckUserAsync("1012", "Heiber", "Bedoya", "heiber@yopmail.com", "322 313 4620", "Calle tierra Calle Sol", UserType.Admin);
         }
+        private async Task CheckRolesAsync()
+        {
+            await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
+            await _userHelper.CheckRoleAsync(UserType.Costumer.ToString());
+        }
+
+        private async Task<User> CheckUserAsync(
+            string document,
+            string firstName,
+            string lastName,
+            string email,
+            string phone,
+            string address,
+            UserType userType)
+        {
+            User user = await _userHelper.GetUserAsync(email);
+            if (user == null)
+            {
+                user = new User
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Email = email,
+                    UserName = email,
+                    PhoneNumber = phone,
+                    Address = address,
+                    Document = document,
+                    campus = _context.Campuses.FirstOrDefault(),
+                    UserType = userType
+                };
+
+                await _userHelper.AddUserAsync(user, "123456");
+                await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+            }
+
+            return user;
+        }
+
 
         private async Task CheckDeparmentsAsync()
         {
