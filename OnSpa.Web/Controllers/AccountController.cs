@@ -153,6 +153,113 @@ namespace OnSpa.Web.Controllers
 
             return Json(city.Campuses.OrderBy(c => c.Name));
         }
+        public async Task<IActionResult> ChangeUser()
+        {
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            City city = await _context.Cities.FirstOrDefaultAsync(d => d.Campuses.FirstOrDefault(c => c.Id == user.Campus.Id) != null);
+            if (city == null)
+            {
+                city = await _context.Cities.FirstOrDefaultAsync();
+            }
+
+            Department department = await _context.Departments.FirstOrDefaultAsync(c => c.Cities.FirstOrDefault(d => d.Id == city.Id) != null);
+            if (department == null)
+            {
+                department = await _context.Departments.FirstOrDefaultAsync();
+            }
+
+            EditUserViewModel model = new EditUserViewModel
+            {
+                Address = user.Address,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                ImageId = user.ImageId,
+                Campuses = _combosHelper.GetComboCampuses(city.Id),
+                CampusId = user.Campus.Id,
+                Departments = _combosHelper.GetComboDepartments(),
+                DepartmentId = department.Id,
+                CityId = city.Id,
+                Cities = _combosHelper.GetComboCities(department.Id),
+                Id = user.Id,
+                Document = user.Document
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeUser(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Guid imageId = model.ImageId;
+
+                if (model.ImageFile != null)
+                {
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "users");
+                }
+
+                User user = await _userHelper.GetUserAsync(User.Identity.Name);
+
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Address = model.Address;
+                user.PhoneNumber = model.PhoneNumber;
+                user.ImageId = imageId;
+                user.Campus = await _context.Campuses.FindAsync(model.CampusId);
+                user.Document = model.Document;
+
+                await _userHelper.UpdateUserAsync(user);
+                return RedirectToAction("Index", "Home");
+            }
+
+            model.Campuses = _combosHelper.GetComboCampuses(model.CityId);
+            model.Departments = _combosHelper.GetComboDepartments();
+            model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
+            return View(model);
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userHelper.GetUserAsync(User.Identity.Name);
+                if (user != null)
+                {
+                    var result = await _userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("ChangeUser");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.Errors.FirstOrDefault().Description);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "User no found.");
+                }
+            }
+
+            return View(model);
+        }
+
+
+
     }
 
 
