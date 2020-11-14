@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using OnSpa.Common.Enums;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Models;
 using System;
@@ -21,7 +22,8 @@ namespace OnSpa.Web.Helpers
         Task<bool> IsUserInRoleAsync(User user, string roleName);
         Task<SignInResult> LoginAsync(LoginViewModel model);
         Task LogoutAsync();
-
+        Task<SignInResult> ValidatePasswordAsync(User user, string password);
+        Task<User> AddUserAsync(AddUserViewModel model, Guid imageId, UserType userType);
 
     }
 }
