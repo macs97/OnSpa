@@ -26,6 +26,7 @@ namespace OnSpa.Web.Data.Entities
         [NotMapped]
         public int IdCity { get; set; }
 
+        [JsonIgnore]
         public City City { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
 

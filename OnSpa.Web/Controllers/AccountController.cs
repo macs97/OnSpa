@@ -98,7 +98,7 @@ namespace OnSpa.Web.Controllers
                     imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "users");
                 }
 
-                User user = await _userHelper.AddUserAsync(model, imageId, UserType.Costumer);
+                User user = await _userHelper.AddUserAsync(model, imageId, UserType.Customer);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
@@ -143,7 +143,6 @@ namespace OnSpa.Web.Controllers
             {
                 return null;
             }
-
             return Json(department.Cities.OrderBy(d => d.Name));
         }
 
@@ -156,7 +155,6 @@ namespace OnSpa.Web.Controllers
             {
                 return null;
             }
-
             return Json(city.Campuses.OrderBy(c => c.Name));
         }
         public async Task<IActionResult> ChangeUser()

@@ -16,6 +16,7 @@ namespace OnSpa.Web.Data.Entities
         public string Name { get; set; }
        
         public ICollection<Campus> Campuses { get; set; }
+
         [DisplayName("Cities Number")]
         public int CampusNumber => Campuses == null ? 0 : Campuses.Count;
 

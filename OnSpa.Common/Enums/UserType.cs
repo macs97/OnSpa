@@ -7,6 +7,6 @@ namespace OnSpa.Common.Enums
     public enum UserType
     {
         Admin,
-        Costumer
+        Customer
     }
 }

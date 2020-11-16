@@ -44,55 +44,52 @@
         @ViewBag.Message
     </p>
 </div>
-
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
         $(document).ready(function () {
             $("#DepartmentId").change(function () {
                 $("#CityId").empty();
-                $("#CityId").append('<option value="0">[Select a city...]</option>');
-                $("#CampusId").empty();
-                $("#CampusId").append('<option value="0">[Select a campus...]</option>');
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetCities")',
                     dataType: 'json',
                     data: { departmentId: $("#DepartmentId").val() },
-                    success: function (subcategories) {
-                        $.each(subcategories, function (i, city) {
-                            debugger;
+                    success: function (cities) {
+                        debugger;
+                        $("#CityId").append('<option value="0">(Select a city...)</option>');
+                        $.each(cities, function (i, city) {
                             $("#CityId").append('<option value="'
                                 + city.id + '">'
                                 + city.name + '</option>');
                         });
                     },
                     error: function (ex) {
-                        alert('Failed to retrieve city.' + ex);
+                        console.log(ex)
+                        alert('Failed to retrieve cities.' + ex);
                     }
                 });
                 return false;
             })
-
             $("#CityId").change(function () {
                 $("#CampusId").empty();
-                $("#CampusId").append('<option value="0">[Select a campus...]</option>');
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetCampuses")',
                     dataType: 'json',
                     data: { cityId: $("#CityId").val() },
                     success: function (campuses) {
+                        debugger;
+                        $("#CampusId").append('<option value="0">(Select a campus...)</option>');
                         $.each(campuses, function (i, campus) {
-                            debugger;
                             $("#CampusId").append('<option value="'
                                 + campus.id + '">'
                                 + campus.name + '</option>');
                         });
                     },
                     error: function (ex) {
-                        alert('Failed to retrieve campus.' + ex);
+                        console.log(ex)
+                        alert('Failed to retrieve campuses.' + ex);
                     }
                 });
                 return false;
