@@ -17,13 +17,6 @@ namespace OnSpa.Web.Data.Entities
 
         [JsonIgnore]
         [NotMapped]
-        public int IdDeparment { get; set; }
-
-        [JsonIgnore]
-        public Department Departments { get; set; }
-
-        [JsonIgnore]
-        [NotMapped]
         public ICollection<UserType> Users { get; set; }
 
         [JsonIgnore]  
@@ -34,5 +27,7 @@ namespace OnSpa.Web.Data.Entities
         public int IdCity { get; set; }
 
         public City City { get; set; }
+        public ICollection<Appointment> Appointments { get; set; }
+
     }
 }

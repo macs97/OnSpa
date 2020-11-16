@@ -55,12 +55,16 @@ namespace OnSpa.Web.Data
                     PhoneNumber = phone,
                     Address = address,
                     Document = document,
-                    campus = _context.Campuses.FirstOrDefault(),
+                    Campus = _context.Campuses.FirstOrDefault(),
                     UserType = userType
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+
+                string token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
+
             }
 
             return user;

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnSpa.Web.Data;
 
 namespace OnSpa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201113224532_newData")]
+    partial class newData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,8 +137,6 @@ namespace OnSpa.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CampusId");
-
                     b.Property<DateTime>("Date");
 
                     b.Property<bool>("IsAvailable");
@@ -146,8 +146,6 @@ namespace OnSpa.Web.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CampusId");
 
                     b.HasIndex("ServiceId");
 
@@ -266,8 +264,6 @@ namespace OnSpa.Web.Migrations
                     b.Property<string>("Address")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("CampusId");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -315,9 +311,9 @@ namespace OnSpa.Web.Migrations
 
                     b.Property<int>("UserType");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("campusId");
 
-                    b.HasIndex("CampusId");
+                    b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -326,6 +322,8 @@ namespace OnSpa.Web.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("campusId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -377,10 +375,6 @@ namespace OnSpa.Web.Migrations
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.Appointment", b =>
                 {
-                    b.HasOne("OnSpa.Web.Data.Entities.Campus")
-                        .WithMany("Appointments")
-                        .HasForeignKey("CampusId");
-
                     b.HasOne("OnSpa.Web.Data.Entities.Service", "Service")
                         .WithMany("Appointments")
                         .HasForeignKey("ServiceId");
@@ -413,9 +407,9 @@ namespace OnSpa.Web.Migrations
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.User", b =>
                 {
-                    b.HasOne("OnSpa.Web.Data.Entities.Campus", "Campus")
+                    b.HasOne("OnSpa.Web.Data.Entities.Campus", "campus")
                         .WithMany()
-                        .HasForeignKey("CampusId");
+                        .HasForeignKey("campusId");
                 });
 #pragma warning restore 612, 618
         }
