@@ -28,9 +28,8 @@ namespace OnSpa.Web.Data.Entities
         [Display(Name = "Image")]
         public Guid ImageId { get; set; }
         public string ImageFullPath => ImageId == Guid.Empty
-          // ? "https://localhost:44374/images/noimage.png"
-          ? $"https://onchurch.azurewebsites.net/images/noimage.png" // falta organizar
-          : $"https://onchurchtaller.blob.core.windows.net/users/{ImageId}";
+          ? $"https://onspa.blob.core.windows.net/users/images/noimage.png"
+          : $"https://onspa.blob.core.windows.net/users/{ImageId}";
 
         public ICollection<Appointment> Appointments { get; set; }
 

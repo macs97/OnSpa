@@ -18,6 +18,10 @@ namespace OnSpa.Web.Data.Entities
         [Display(Name = "Image")]
         public Guid ImageId { get; set; }
 
+        public string ImageFullPath => ImageId == Guid.Empty
+          ? $"https://onspa.blob.core.windows.net/service-types/images/noimage.png"
+          : $"https://onspa.blob.core.windows.net/service-types/{ImageId}";
+
         [JsonIgnore]
         public Service Services { get; set; }
 

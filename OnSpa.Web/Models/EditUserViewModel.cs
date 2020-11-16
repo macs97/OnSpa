@@ -38,8 +38,8 @@ namespace OnSpa.Web.Models
 
         [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://OnSaleweb.azurewebsites.net/images/noimage.png"
-            : $"https://onsale.blob.core.windows.net/users/{ImageId}";
+            ? $"https://onspa.blob.core.windows.net/users/images/noimage.png"
+            : $"https://onspa.blob.core.windows.net/users/{ImageId}";
 
         [Display(Name = "Image")]
         public IFormFile ImageFile { get; set; }
