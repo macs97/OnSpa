@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using OnSpa.Common.Enums;
 using OnSpa.Common.Request;
+using OnSpa.Common.Respons;
+using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
 using OnSpa.Web.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +26,19 @@ namespace OnSpa.Web.Controllers.API
     {
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
+        private readonly IBlobHelper _blobHelper;
+        private readonly IMailHelper _mailHelper;
+        private readonly DataContext _context;
 
-        public AccountController(IUserHelper userHelper, IConfiguration configuration)
+
+        public AccountController(IUserHelper userHelper, IConfiguration configuration, IBlobHelper blobHelper, IMailHelper mailHelper, DataContext context)
         {
             _userHelper = userHelper;
             _configuration = configuration;
+            _blobHelper = blobHelper;
+            _mailHelper = mailHelper;
+            _context = context;
+
         }
 
         [HttpPost]
@@ -86,6 +99,173 @@ namespace OnSpa.Web.Controllers.API
             }
 
             return Ok(user);
+        }
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> PostUser([FromBody] UserRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+            User user = await _userHelper.GetUserAsync(request.Email);
+            if (user != null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error003"
+                });
+            }
+
+            //TODO: Translate ErrorXXX literals
+            Campus campus = await _context.Campuses.FindAsync(request.CampusId);
+            if (campus == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error004"
+                });
+            }
+
+            Guid imageId = Guid.Empty;
+
+            if (request.ImageArray != null)
+            {
+                imageId = await _blobHelper.UploadBlobAsync(request.ImageArray, "users");
+            }
+
+            user = new User
+            {
+                Address = request.Address,
+                Document = request.Document,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                PhoneNumber = request.Phone,
+                UserName = request.Email,
+                ImageId = imageId,
+                UserType = UserType.Costumer,
+                Campus = campus
+            };
+
+            IdentityResult result = await _userHelper.AddUserAsync(user, request.Password);
+            if (result != IdentityResult.Success)
+            {
+                return BadRequest(result.Errors.FirstOrDefault().Description);
+            }
+
+            User userNew = await _userHelper.GetUserAsync(request.Email);
+            await _userHelper.AddUserToRoleAsync(userNew, user.UserType.ToString());
+
+            string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+            string tokenLink = Url.Action("ConfirmEmail", "Account", new
+            {
+                userid = user.Id,
+                token = myToken
+            }, protocol: HttpContext.Request.Scheme);
+
+            _mailHelper.SendMail(request.Email, "Email Confirmation", $"<h1>Email Confirmation</h1>" +
+                $"To confirm your email please click on the link<p><a href = \"{tokenLink}\">Confirm Email</a></p>");
+
+            return Ok(new Response { IsSuccess = true });
+        }
+
+        //modificar usuario api
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPut]
+        public async Task<IActionResult> PutUser([FromBody] UserRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            User user = await _userHelper.GetUserAsync(email);
+            if (user == null)
+            {
+                return NotFound("Error001");
+            }
+
+            Campus campus = await _context.Campuses.FindAsync(request.CampusId);
+            if (campus == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error004"
+                });
+            }
+
+            Guid imageId = user.ImageId;
+
+            if (request.ImageArray != null)
+            {
+                imageId = await _blobHelper.UploadBlobAsync(request.ImageArray, "users");
+            }
+
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.Address = request.Address;
+            user.PhoneNumber = request.Phone;
+            user.Document = request.Phone;
+            user.Campus = campus;
+            user.ImageId = imageId;
+
+            IdentityResult respose = await _userHelper.UpdateUserAsync(user);
+            if (!respose.Succeeded)
+            {
+                return BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+
+            User updatedUser = await _userHelper.GetUserAsync(email);
+            return Ok(updatedUser);
+        }
+
+
+        //cambiar clave
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        [Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request",
+                    Result = ModelState
+                });
+            }
+
+            string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            User user = await _userHelper.GetUserAsync(email);
+            if (user == null)
+            {
+                return NotFound("Error001");
+            }
+
+            IdentityResult result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                var message = result.Errors.FirstOrDefault().Description;
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error005"
+                });
+            }
+
+            return Ok(new Response { IsSuccess = true });
         }
 
     }

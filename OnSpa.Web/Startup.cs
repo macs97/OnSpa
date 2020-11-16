@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using OnSpa.Common.Services;
 using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
@@ -75,7 +76,7 @@ namespace OnSpa.Web
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
 
-
+            services.AddScoped<IApiService, ApiService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -12,6 +12,8 @@ namespace OnSpa.Web.Helpers
         Task<Guid> UploadBlobAsync(byte[] file, string containerName);
 
         Task<Guid> UploadBlobAsync(string image, string containerName);
-        
+
+        Task<Guid> UploadBlobAsync(Stream stream, string containerName);
+
     }
 }

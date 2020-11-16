@@ -1,7 +1,11 @@
 ﻿using OnSpa.Common.Enums;
+using OnSpa.Common.Models;
+using OnSpa.Common.Services;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,11 +15,18 @@ namespace OnSpa.Web.Data
     {
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
+        private readonly IBlobHelper _blobHelper;
+        private readonly IApiService _apiService;
+        private readonly Random _random;
 
-        public SeedDb(DataContext context, IUserHelper userHelper)
+
+        public SeedDb(DataContext context, IUserHelper userHelper, IBlobHelper blobHelper, IApiService apiService)
         {
             _context = context;
             _userHelper = userHelper;
+            _blobHelper = blobHelper;
+            _apiService = apiService;
+            _random = new Random();
 
         }
 
@@ -24,9 +35,8 @@ namespace OnSpa.Web.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckDeparmentsAsync();
             await CheckRolesAsync();
-            await CheckUserAsync("1010", "Esneider", "Cano", "esneiderclon17@gmail.com", "322 311 4620", "Calle Luna Calle Sol", UserType.Admin);
-            await CheckUserAsync("1011", "Marcela", "Cardona", "marcela@yopmail.com", "322 315 4620", "Calle estrella Calle Sol", UserType.Admin);
-            await CheckUserAsync("1012", "Heiber", "Bedoya", "heiber@yopmail.com", "322 313 4620", "Calle tierra Calle Sol", UserType.Admin);
+            await CheckUsersAsync();
+
         }
         private async Task CheckRolesAsync()
         {
@@ -34,41 +44,78 @@ namespace OnSpa.Web.Data
             await _userHelper.CheckRoleAsync(UserType.Costumer.ToString());
         }
 
+        private async Task CheckUsersAsync()
+        {
+            if (!_context.Users.Any())
+            {
+                await CheckAdminsAsync();
+                await CheckBuyersAsync();
+            }
+        }
+
+        private async Task CheckBuyersAsync()
+        {
+            for (int i = 1; i <= 50; i++)
+            {
+                await CheckUserAsync($"100{i}", $"buyer{i}@yopmail.com", UserType.Costumer);
+            }
+        }
+
+        private async Task CheckAdminsAsync()
+        {
+            await CheckUserAsync("1001", "admin1@yopmail.com", UserType.Admin);
+        }
+
         private async Task<User> CheckUserAsync(
             string document,
-            string firstName,
-            string lastName,
             string email,
-            string phone,
-            string address,
             UserType userType)
         {
+            RandomUsers randomUsers;
+
+            do
+            {
+                randomUsers = await _apiService.GetRandomUser("https://randomuser.me", "api");
+            } while (randomUsers == null);
+
+            Guid imageId = Guid.Empty;
+            RandomUser randomUser = randomUsers.Results.FirstOrDefault();
+            string imageUrl = randomUser.Picture.Large.ToString().Substring(22);
+            Stream stream = await _apiService.GetPictureAsync("https://randomuser.me", imageUrl);
+            if (stream != null)
+            {
+                imageId = await _blobHelper.UploadBlobAsync(stream, "users");
+            }
+
+            int campusId = _random.Next(1, _context.Campuses.Count());
             User user = await _userHelper.GetUserAsync(email);
             if (user == null)
             {
                 user = new User
                 {
-                    FirstName = firstName,
-                    LastName = lastName,
+                    FirstName = randomUser.Name.First,
+                    LastName = randomUser.Name.Last,
                     Email = email,
                     UserName = email,
-                    PhoneNumber = phone,
-                    Address = address,
+                    PhoneNumber = randomUser.Cell,
+                    Address = $"{randomUser.Location.Street.Number}, {randomUser.Location.Street.Name}",
                     Document = document,
-                    Campus = _context.Campuses.FirstOrDefault(),
-                    UserType = userType
+                    UserType = userType,
+                    Campus = await _context.Campuses.FindAsync(campusId),
+                    ImageId = imageId,
+                    //Latitude = double.Parse(randomUser.Location.Coordinates.Latitude),
+                    //Logitude = double.Parse(randomUser.Location.Coordinates.Longitude)
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, userType.ToString());
-
                 string token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
                 await _userHelper.ConfirmEmailAsync(user, token);
-
             }
 
             return user;
         }
+
 
 
         private async Task CheckDeparmentsAsync()
