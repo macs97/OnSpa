@@ -152,8 +152,7 @@ namespace OnSpa.Web.Controllers.API
                 PhoneNumber = request.Phone,
                 UserName = request.Email,
                 ImageId = imageId,
-                UserType = UserType.Costumer,
-                Campus = campus
+                UserType = UserType.Customer
             };
 
             IdentityResult result = await _userHelper.AddUserAsync(user, request.Password);
@@ -217,7 +216,6 @@ namespace OnSpa.Web.Controllers.API
             user.Address = request.Address;
             user.PhoneNumber = request.Phone;
             user.Document = request.Phone;
-            user.Campus = campus;
             user.ImageId = imageId;
 
             IdentityResult respose = await _userHelper.UpdateUserAsync(user);
