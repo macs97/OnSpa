@@ -34,18 +34,13 @@ namespace OnSpa.Web.Data.Entities
 
         public ICollection<Appointment> Appointments { get; set; }
 
-
         [Display(Name = "User Type")]
         public UserType UserType { get; set; }
-
-        public Campus Campus { get; set; }
 
         [Display(Name = "User")]
         public string FullName => $"{FirstName} {LastName}";
 
         [Display(Name = "User")]
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
-
-      //  public ICollection<Appointment> Appointments { get; set; }
     }
 }

@@ -43,27 +43,6 @@ namespace OnSpa.Web.Models
 
         [Display(Name = "Image")]
         public IFormFile ImageFile { get; set; }
-
-        [Required]
-        [Display(Name = "Department")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a country.")]
-        public int DepartmentId { get; set; }
-
-        public IEnumerable<SelectListItem> Departments { get; set; }
-
-        [Required]
-        [Display(Name = "City")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a department.")]
-        public int CityId { get; set; }
-
-        public IEnumerable<SelectListItem> Cities { get; set; }
-
-        [Required]
-        [Display(Name = "Campus")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a city.")]
-        public int CampusId { get; set; }
-
-        public IEnumerable<SelectListItem> Campuses { get; set; }
     }
 
 }

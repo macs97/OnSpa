@@ -13,7 +13,6 @@ namespace OnSpa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-
         [Display(Name = "Is Available?")]
         public bool IsAvailable { get; set; }
 
@@ -21,8 +20,8 @@ namespace OnSpa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}")]
         public DateTime DateLocal => Date.ToLocalTime();
 
-
         public Service Service { get; set; }
+        public string EmployeeId { get; set; }
 
         public User User { get; set; }
     }

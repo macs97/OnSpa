@@ -27,8 +27,6 @@ namespace OnSpa.Web.Data.Entities
 
         [JsonIgnore]
         public Department Department { get; set; }
-        [Display(Name = "# Users")]
-        public int UsersNumber => Campuses == null ? 0 : Campuses.Sum(c => c.UsersNumber);
 
     }
 }

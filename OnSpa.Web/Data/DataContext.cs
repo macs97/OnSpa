@@ -22,21 +22,42 @@ namespace OnSpa.Web.Data
         
        public DbSet<ServiceType> ServiceTypes { get; set; }
 
+        public DbSet<ServiceTypeCampus> ServiceTypeCampuses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Department>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
+            modelBuilder.Entity<Department>(deparment =>
+            {
+                deparment.HasIndex("Name").IsUnique();
+                deparment.HasMany(d => d.Cities).WithOne(c => c.Department).OnDelete(DeleteBehavior.Cascade);
+            });
 
-            modelBuilder.Entity<City>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
+            modelBuilder.Entity<City>(city =>
+            {
+                city.HasIndex("Name").IsUnique();
+                city.HasMany(c => c.Campuses).WithOne(c => c.City).OnDelete(DeleteBehavior.Cascade);
+            });
 
-            modelBuilder.Entity<Campus>()
-                .HasIndex(t => t.Name)
-                .IsUnique();
+            modelBuilder.Entity<Campus>(campus =>
+            {
+                campus.HasIndex("Name").IsUnique();
+                campus.HasOne(c => c.City).WithMany(c => c.Campuses).OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<ServiceTypeCampus>()
+            .HasKey(sc => new { sc.ServiceTypeId, sc.CampusId });
+
+            modelBuilder.Entity<ServiceTypeCampus>()
+            .HasOne(sc => sc.Campus)
+            .WithMany(c => c.ServiceTypeCampuses)
+            .HasForeignKey(sc => sc.CampusId);
+
+            modelBuilder.Entity<ServiceTypeCampus>()
+                .HasOne(sc => sc.ServiceType)
+                .WithMany(s => s.ServiceTypeCampuses)
+                .HasForeignKey(sc => sc.ServiceTypeId);
         }
     }
 }

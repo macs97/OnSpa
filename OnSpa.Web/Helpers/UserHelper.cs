@@ -64,7 +64,7 @@ namespace OnSpa.Web.Helpers
         public async Task<User> GetUserAsync(string email)
         {
             return await _context.Users
-                .Include(u => u.Campus)
+                .Include(u => u.Appointments)
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
@@ -88,7 +88,6 @@ namespace OnSpa.Web.Helpers
                 LastName = model.LastName,
                 ImageId = imageId,
                 PhoneNumber = model.PhoneNumber,
-                Campus = await _context.Campuses.FindAsync(model.CampusId),
                 UserName = model.Username,
                 UserType = userType
             };
@@ -116,7 +115,7 @@ namespace OnSpa.Web.Helpers
         public async Task<User> GetUserAsync(Guid userId)
         {
             return await _context.Users
-                .Include(u => u.Campus)
+                .Include(u => u.Appointments)
                 .FirstOrDefaultAsync(u => u.Id == userId.ToString());
         }
         public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)

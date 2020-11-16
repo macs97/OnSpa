@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnSpa.Web.Data.Entities
 {
@@ -11,7 +15,16 @@ namespace OnSpa.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Name { get; set; }
 
+        [Display(Name = "Image")]
+        public Guid ImageId { get; set; }
+
+        [JsonIgnore]
         public Service Services { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public decimal Price { get; set; }
+
+        public ICollection<ServiceTypeCampus> ServiceTypeCampuses { get; set; }
 
     }
 }

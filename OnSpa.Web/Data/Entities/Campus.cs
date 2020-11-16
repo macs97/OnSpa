@@ -17,18 +17,12 @@ namespace OnSpa.Web.Data.Entities
 
         [JsonIgnore]
         [NotMapped]
-        public ICollection<UserType> Users { get; set; }
-
-        [JsonIgnore]  
-        [Display(Name = "# Users")]
-        public int UsersNumber => Users == null ? 0 : Users.Count;
-        [JsonIgnore]
-        [NotMapped]
         public int IdCity { get; set; }
 
         [JsonIgnore]
         public City City { get; set; }
-        public ICollection<Appointment> Appointments { get; set; }
+
+        public ICollection<ServiceTypeCampus> ServiceTypeCampuses { get; set; }
 
     }
 }

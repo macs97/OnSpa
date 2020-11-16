@@ -55,7 +55,6 @@ namespace OnSpa.Web.Data
                     PhoneNumber = phone,
                     Address = address,
                     Document = document,
-                    Campus = _context.Campuses.FirstOrDefault(),
                     UserType = userType
                 };
 

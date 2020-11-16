@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnSpa.Web.Data;
 
 namespace OnSpa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201116025810_UpdateRelationsDB")]
+    partial class UpdateRelationsDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,6 +239,8 @@ namespace OnSpa.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CampusId");
+
                     b.Property<Guid>("ImageId");
 
                     b.Property<string>("Name")
@@ -249,22 +253,11 @@ namespace OnSpa.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CampusId");
+
                     b.HasIndex("ServicesId");
 
                     b.ToTable("ServiceTypes");
-                });
-
-            modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceTypeCampus", b =>
-                {
-                    b.Property<int>("ServiceTypeId");
-
-                    b.Property<int>("CampusId");
-
-                    b.HasKey("ServiceTypeId", "CampusId");
-
-                    b.HasIndex("CampusId");
-
-                    b.ToTable("ServiceTypeCampuses");
                 });
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.User", b =>
@@ -397,36 +390,25 @@ namespace OnSpa.Web.Migrations
                 {
                     b.HasOne("OnSpa.Web.Data.Entities.City", "City")
                         .WithMany("Campuses")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CityId");
                 });
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.City", b =>
                 {
                     b.HasOne("OnSpa.Web.Data.Entities.Department", "Department")
                         .WithMany("Cities")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DepartmentId");
                 });
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceType", b =>
                 {
+                    b.HasOne("OnSpa.Web.Data.Entities.Campus")
+                        .WithMany("ServiceTypes")
+                        .HasForeignKey("CampusId");
+
                     b.HasOne("OnSpa.Web.Data.Entities.Service", "Services")
                         .WithMany("ServiceTypes")
                         .HasForeignKey("ServicesId");
-                });
-
-            modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceTypeCampus", b =>
-                {
-                    b.HasOne("OnSpa.Web.Data.Entities.Campus", "Campus")
-                        .WithMany("ServiceTypeCampuses")
-                        .HasForeignKey("CampusId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("OnSpa.Web.Data.Entities.ServiceType", "ServiceType")
-                        .WithMany("ServiceTypeCampuses")
-                        .HasForeignKey("ServiceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

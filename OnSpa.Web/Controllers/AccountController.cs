@@ -75,14 +75,7 @@ namespace OnSpa.Web.Controllers
         }
         public IActionResult Register()
         {
-            AddUserViewModel model = new AddUserViewModel
-            {
-                Departments = _combosHelper.GetComboDepartments(),
-                Cities = _combosHelper.GetComboCities(0),
-                Campuses = _combosHelper.GetComboCampuses(0),
-            };
-
-            return View(model);
+            return View();
         }
 
         [HttpPost]
@@ -102,9 +95,6 @@ namespace OnSpa.Web.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "This email is already used.");
-                    model.Departments = _combosHelper.GetComboDepartments();
-                    model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
-                    model.Campuses = _combosHelper.GetComboCampuses(model.CityId);
                     return View(model);
                 }
                 string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
@@ -125,11 +115,6 @@ namespace OnSpa.Web.Controllers
 
                 ModelState.AddModelError(string.Empty, response.Message);
             }
-
-
-            model.Departments = _combosHelper.GetComboDepartments();
-            model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
-            model.Campuses = _combosHelper.GetComboCampuses(model.CityId);
             return View(model);
         }
 
@@ -165,18 +150,6 @@ namespace OnSpa.Web.Controllers
                 return NotFound();
             }
 
-            City city = await _context.Cities.FirstOrDefaultAsync(d => d.Campuses.FirstOrDefault(c => c.Id == user.Campus.Id) != null);
-            if (city == null)
-            {
-                city = await _context.Cities.FirstOrDefaultAsync();
-            }
-
-            Department department = await _context.Departments.FirstOrDefaultAsync(c => c.Cities.FirstOrDefault(d => d.Id == city.Id) != null);
-            if (department == null)
-            {
-                department = await _context.Departments.FirstOrDefaultAsync();
-            }
-
             EditUserViewModel model = new EditUserViewModel
             {
                 Address = user.Address,
@@ -184,12 +157,6 @@ namespace OnSpa.Web.Controllers
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 ImageId = user.ImageId,
-                Campuses = _combosHelper.GetComboCampuses(city.Id),
-                CampusId = user.Campus.Id,
-                Departments = _combosHelper.GetComboDepartments(),
-                DepartmentId = department.Id,
-                CityId = city.Id,
-                Cities = _combosHelper.GetComboCities(department.Id),
                 Id = user.Id,
                 Document = user.Document
             };
@@ -217,16 +184,11 @@ namespace OnSpa.Web.Controllers
                 user.Address = model.Address;
                 user.PhoneNumber = model.PhoneNumber;
                 user.ImageId = imageId;
-                user.Campus = await _context.Campuses.FindAsync(model.CampusId);
                 user.Document = model.Document;
 
                 await _userHelper.UpdateUserAsync(user);
                 return RedirectToAction("Index", "Home");
             }
-
-            model.Campuses = _combosHelper.GetComboCampuses(model.CityId);
-            model.Departments = _combosHelper.GetComboDepartments();
-            model.Cities = _combosHelper.GetComboCities(model.DepartmentId);
             return View(model);
         }
 
