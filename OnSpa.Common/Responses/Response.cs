@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OnSpa.Common.Respons
+﻿namespace OnSpa.Common.Responses
 {
     public class Response
     {

@@ -3,9 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              x:Class="OnSpa.Prism.App">
-  <Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary>
 
-    <!-- Application resource dictionary -->
+            <!-- Application resource dictionary -->
+            <x:String x:Key="UrlAPI">https://onspa.azurewebsites.net</x:String>
 
-  </Application.Resources>
+            <!-- Colors -->
+            <Color x:Key="ColorBackground">#F0FFF0</Color>
+            <Color x:Key="ColorPrimary">#038C65</Color>
+            <Color x:Key="ColorSecondary">#3B5998</Color>
+            <Color x:Key="ColorDanger">#FF7F50</Color>
+            <Color x:Key="ColorAccent">#FF7F50</Color>
+            <Color x:Key="ColorFont">#000000</Color>
+            <Color x:Key="ColorFontInverse">#FFFFFF</Color>
+
+            <!-- Styles -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorPrimary}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource ColorFontInverse}" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource ColorFont}" />
+            </Style>
+
+            <Style x:Key="SecondaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorSecondary}" />
+            </Style>
+
+            <Style x:Key="DangerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorDanger}" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
 </prism:PrismApplication>

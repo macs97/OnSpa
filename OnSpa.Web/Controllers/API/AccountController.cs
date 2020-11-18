@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using OnSpa.Common.Enums;
 using OnSpa.Common.Request;
-using OnSpa.Common.Respons;
+using OnSpa.Common.Responses;
 using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
@@ -124,17 +124,6 @@ namespace OnSpa.Web.Controllers.API
                 });
             }
 
-            //TODO: Translate ErrorXXX literals
-            Campus campus = await _context.Campuses.FindAsync(request.CampusId);
-            if (campus == null)
-            {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Error004"
-                });
-            }
-
             Guid imageId = Guid.Empty;
 
             if (request.ImageArray != null)
@@ -192,16 +181,6 @@ namespace OnSpa.Web.Controllers.API
             if (user == null)
             {
                 return NotFound("Error001");
-            }
-
-            Campus campus = await _context.Campuses.FindAsync(request.CampusId);
-            if (campus == null)
-            {
-                return BadRequest(new Response
-                {
-                    IsSuccess = false,
-                    Message = "Error004"
-                });
             }
 
             Guid imageId = user.ImageId;

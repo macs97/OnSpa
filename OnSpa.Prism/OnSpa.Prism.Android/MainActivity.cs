@@ -3,6 +3,9 @@ using Android.Content.PM;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
+using Syncfusion.SfBusyIndicator.XForms.Droid;
+using Syncfusion.SfRotator.XForms.Droid;
+using Syncfusion.XForms.Android.TextInputLayout;
 
 namespace OnSpa.Prism.Droid
 {
@@ -18,6 +21,8 @@ namespace OnSpa.Prism.Droid
             base.OnCreate(savedInstanceState);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            new SfBusyIndicatorRenderer();
+            new SfRotatorRenderer();
             LoadApplication(new App(new AndroidInitializer()));
         }
 

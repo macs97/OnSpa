@@ -66,7 +66,7 @@ namespace OnSpa.Web.Data
             await CheckUserAsync("1001", "admin1@yopmail.com", UserType.Admin);
         }
 
-        private async Task<User> CheckUserAsync(
+        private async Task<Data.Entities.User> CheckUserAsync(
             string document,
             string email,
             UserType userType)
@@ -88,10 +88,10 @@ namespace OnSpa.Web.Data
             }
 
             int campusId = _random.Next(1, _context.Campuses.Count());
-            User user = await _userHelper.GetUserAsync(email);
+            Data.Entities.User user = await _userHelper.GetUserAsync(email);
             if (user == null)
             {
-                user = new User
+                user = new Data.Entities.User
                 {
                     FirstName = randomUser.Name.First,
                     LastName = randomUser.Name.Last,
@@ -121,29 +121,29 @@ namespace OnSpa.Web.Data
         {
             if (!_context.Departments.Any())
             {
-                _context.Departments.Add(new Department
+                _context.Departments.Add(new Data.Entities.Department
                 {
                     Name = "Antioquia",
-                    Cities = new List<City>
+                    Cities = new List<Data.Entities.City>
                 {
-                    new City
+                    new Data.Entities.City
                     {
                         Name = "Medellin",
-                        Campuses = new List<Campus>
+                        Campuses = new List<Data.Entities.Campus>
                         {
-                            new Campus { Name = "Campus 1" },
-                            new Campus { Name = "Campus 2" },
-                            new Campus { Name = "Campus 3" }
+                            new Data.Entities.Campus { Name = "Campus 1" },
+                            new Data.Entities.Campus { Name = "Campus 2" },
+                            new Data.Entities.Campus { Name = "Campus 3" }
                         }
                     },
-                    new City
+                    new Data.Entities.City
                     {
                         Name = "Bogotá",
-                        Campuses = new List<Campus>
+                        Campuses = new List<Data.Entities.Campus>
                         {
-                            new Campus { Name = "Campus 4" },
-                            new Campus { Name = "Campus 5" },
-                            new Campus { Name = "Campus 6" }
+                            new Data.Entities.Campus { Name = "Campus 4" },
+                            new Data.Entities.Campus { Name = "Campus 5" },
+                            new Data.Entities.Campus { Name = "Campus 6" }
                         }
                     }
                    }

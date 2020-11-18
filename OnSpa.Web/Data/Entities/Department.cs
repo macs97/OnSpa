@@ -17,9 +17,5 @@ namespace OnSpa.Web.Data.Entities
 
         [DisplayName("Cities Number")]
         public int CitiesNumber => Cities == null ? 0 : Cities.Count;
-
-
-
-
     }
 }

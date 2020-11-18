@@ -29,9 +29,6 @@ namespace OnSpa.Common.Request
         [StringLength(20, MinimumLength = 6)]
         public string Password { get; set; }
 
-        [Required]
-        public int CampusId { get; set; }
-
         public byte[] ImageArray { get; set; }
     }
 
