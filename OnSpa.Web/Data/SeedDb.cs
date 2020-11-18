@@ -57,7 +57,7 @@ namespace OnSpa.Web.Data
         {
             for (int i = 1; i <= 50; i++)
             {
-                await CheckUserAsync($"100{i}", $"buyer{i}@yopmail.com", UserType.Customer);
+                await CheckUserAsync($"100{i}", $"costumer{i}@yopmail.com", UserType.Customer);
             }
         }
 
@@ -138,7 +138,7 @@ namespace OnSpa.Web.Data
                     },
                     new City
                     {
-                        Name = "Bogotá",
+                        Name = "Bello",
                         Campuses = new List<Campus>
                         {
                             new Campus { Name = "Campus 4" },
