@@ -1,7 +1,7 @@
 ﻿using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
-using OnSpa.Common.Respons;
+using OnSpa.Common.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

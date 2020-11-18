@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OnSpa.Common.Models;
+using OnSpa.Common.Request;
+using OnSpa.Common.Responses;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,5 +65,119 @@ namespace OnSpa.Common.Services
             }
         }
 
+        public async Task<Response> GetListAsync<T>(
+            string urlBase,
+            string servicePrefix,
+            string controller)
+        {
+            try
+            {
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase),
+                };
+
+                string url = $"{servicePrefix}{controller}";
+                HttpResponseMessage response = await client.GetAsync(url);
+                string result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                List<T> list = JsonConvert.DeserializeObject<List<T>>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = list
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+        public async Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, TokenRequest request)
+        {
+            try
+            {
+                string requestString = JsonConvert.SerializeObject(request);
+                StringContent content = new StringContent(requestString, Encoding.UTF8, "application/json");
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                string url = $"{servicePrefix}{controller}";
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                string result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                LoginResponse token = JsonConvert.DeserializeObject<LoginResponse>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = token
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
+
+        public async Task<Response> RegisterUserAsync(string urlBase, string servicePrefix, string controller, UserRequest userRequest)
+        {
+            try
+            {
+                string request = JsonConvert.SerializeObject(userRequest);
+                StringContent content = new StringContent(request, Encoding.UTF8, "application/json");
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                string url = $"{servicePrefix}{controller}";
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                string result = await response.Content.ReadAsStringAsync();
+                
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = result
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSpa.Common.Enums;
-using OnSpa.Common.Respons;
+using OnSpa.Common.Responses;
 using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
