@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿//using Newtonsoft.Json;
 using OnSpa.Common.Helpers;
 using OnSpa.Common.Request;
 using OnSpa.Common.Responses;
@@ -101,7 +101,7 @@ namespace OnSpa.Prism.ViewModels
             }
 
             TokenResponse token = (TokenResponse)response.Result;
-            Settings.Token = JsonConvert.SerializeObject(token);
+            //Settings.Token = JsonConvert.SerializeObject(token);
             Settings.IsLogin = true;
 
             IsRunning = false;
