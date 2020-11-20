@@ -25,6 +25,7 @@ namespace OnSpa.Prism.ViewModels
         {
             _navigationService = navigationService;
             LoadMenus();
+            LoadUser();
         }
 
         public User User

@@ -20,7 +20,8 @@
             </ContentPage.Padding>
 
             <StackLayout Padding="20">
-                <ffimageloading:CachedImage Aspect="AspectFill"
+                <StackLayout Orientation="Horizontal">
+                    <ffimageloading:CachedImage Aspect="AspectFill"
                                     Source="{Binding User.ImageFullPath}" 
                                     CacheDuration= "50"
                                     HeightRequest="100"
@@ -28,10 +29,12 @@
                                     RetryCount= "3"
                                     RetryDelay= "600"
                                     WidthRequest="100">
-                    <ffimageloading:CachedImage.Transformations>
-                        <fftransformations:CircleTransformation />
-                    </ffimageloading:CachedImage.Transformations>
-                </ffimageloading:CachedImage>
+                        <ffimageloading:CachedImage.Transformations>
+                            <fftransformations:CircleTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                    </ffimageloading:CachedImage>
+                </StackLayout>
+
 
                 <Label FontAttributes="Bold"
                         FontSize="Large"
