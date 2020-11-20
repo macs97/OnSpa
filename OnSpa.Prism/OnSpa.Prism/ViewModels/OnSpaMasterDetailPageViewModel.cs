@@ -19,12 +19,30 @@ namespace OnSpa.Prism.ViewModels
     public class OnSpaMasterDetailPageViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
+        private User _user;
 
         public OnSpaMasterDetailPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
             LoadMenus();
         }
+
+        public User User
+        {
+            get => _user;
+            set => SetProperty(ref _user, value);
+        }
+
+        private void LoadUser()
+        {
+            if (Settings.IsLogin)
+            {
+                LoginResponse token = JsonConvert.DeserializeObject<LoginResponse>(Settings.Token);
+                User = token.User;
+            }
+        }
+
+
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
 
         private void LoadMenus()
@@ -35,7 +53,19 @@ namespace OnSpa.Prism.ViewModels
             {
                 Icon = "ic_login",
                 PageName = $"{nameof(LoginPage)}",
-                Title = Languages.Login
+                Title = Settings.IsLogin ? Languages.Logout : Languages.Login
+            },
+            new Menu
+            {
+                Icon = "ic_login",
+                PageName = $"{nameof(ReservePage)}",
+                Title = Languages.Reserve
+            },
+            new Menu
+            {
+                Icon = "ic_login",
+                PageName = $"{nameof(RecordPage)}",
+                Title = Languages.Record
             }
         };
 

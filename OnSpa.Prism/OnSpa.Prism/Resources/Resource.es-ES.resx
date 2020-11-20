@@ -294,4 +294,25 @@
   <data name="ChangePassworrdMessage" xml:space="preserve">
     <value>La contraseña se cambió correctamente.</value>
   </data>
+  <data name="Reserve" xml:space="preserve">
+    <value>Reserva</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="Error001" xml:space="preserve">
+    <value>No se ha encontrado.</value>
+  </data>
+  <data name="Error002" xml:space="preserve">
+    <value>Producto no encontrado.!</value>
+  </data>
+  <data name="Error003" xml:space="preserve">
+    <value>Ya hay un usuario registrado con el correo electrónico {0}</value>
+  </data>
+  <data name="Error004" xml:space="preserve">
+    <value>No se ha encontrado.</value>
+  </data>
+  <data name="RegisterMessge" xml:space="preserve">
+    <value>Su usuario se ha registrado correctamente, se envió un correo electrónico para confirmar la cuenta de usuario.!</value>
+  </data>
 </root>

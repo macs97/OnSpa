@@ -70,8 +70,8 @@ namespace OnSpa.Web.Controllers.API
                             signingCredentials: credentials);
                         var results = new
                         {
-                            token = new JwtSecurityTokenHandler().WriteToken(token),
-                            expiration = token.ValidTo,
+                            Token = new JwtSecurityTokenHandler().WriteToken(token),
+                            Expiration = token.ValidTo,
                             user
                         };
 

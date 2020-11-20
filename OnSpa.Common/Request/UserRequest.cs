@@ -30,6 +30,9 @@ namespace OnSpa.Common.Request
         public string Password { get; set; }
 
         public byte[] ImageArray { get; set; }
+
+        public string PasswordConfirm { get; set; }
+
     }
 
 }

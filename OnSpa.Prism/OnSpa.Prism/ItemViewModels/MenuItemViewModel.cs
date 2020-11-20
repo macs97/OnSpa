@@ -20,6 +20,12 @@ namespace OnSpa.Prism.ItemViewModels
 
         private async void SelectMenuAsync()
         {
+            if (PageName == nameof(LoginPage) && Settings.IsLogin)
+            {
+                Settings.IsLogin = false;
+                Settings.Token = null;
+            }
+
             await _navigationService.NavigateAsync($"/{nameof(OnSpaMasterDetailPage)}/NavigationPage/{PageName}");
         }
     }

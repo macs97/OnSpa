@@ -88,7 +88,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your address.
+        ///   Looks up a localized string similar to Enter your address....
         /// </summary>
         internal static string AddressPlaceHolder {
             get {
@@ -232,7 +232,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your document number.
+        ///   Looks up a localized string similar to Enter your document number....
         /// </summary>
         internal static string DocumentPlaceHolder {
             get {
@@ -277,6 +277,42 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User no found..
+        /// </summary>
+        internal static string Error001 {
+            get {
+                return ResourceManager.GetString("Error001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product no found..
+        /// </summary>
+        internal static string Error002 {
+            get {
+                return ResourceManager.GetString("Error002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A user with that email is already registered..
+        /// </summary>
+        internal static string Error003 {
+            get {
+                return ResourceManager.GetString("Error003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City no found..
+        /// </summary>
+        internal static string Error004 {
+            get {
+                return ResourceManager.GetString("Error004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First name.
         /// </summary>
         internal static string FirstName {
@@ -295,7 +331,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your first name.
+        ///   Looks up a localized string similar to Enter your first name....
         /// </summary>
         internal static string FirstNamePlaceHolder {
             get {
@@ -349,7 +385,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your last name.
+        ///   Looks up a localized string similar to Enter your last name....
         /// </summary>
         internal static string LastNamePlaceHolder {
             get {
@@ -493,7 +529,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the password confirm.
+        ///   Looks up a localized string similar to Enter the password confirm....
         /// </summary>
         internal static string PasswordConfirmPlaceHolder {
             get {
@@ -529,7 +565,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your phone.
+        ///   Looks up a localized string similar to Enter your phone....
         /// </summary>
         internal static string PhoneError {
             get {
@@ -552,6 +588,15 @@ namespace OnSpa.Prism.Resources {
         internal static string PictureSource {
             get {
                 return ResourceManager.GetString("PictureSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record.
+        /// </summary>
+        internal static string Record {
+            get {
+                return ResourceManager.GetString("Record", resourceCulture);
             }
         }
         
@@ -588,6 +633,24 @@ namespace OnSpa.Prism.Resources {
         internal static string RegisterMessage {
             get {
                 return ResourceManager.GetString("RegisterMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your user has been registered ok, an email was sent to confirm the user account..
+        /// </summary>
+        internal static string RegisterMessge {
+            get {
+                return ResourceManager.GetString("RegisterMessge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reserve.
+        /// </summary>
+        internal static string Reserve {
+            get {
+                return ResourceManager.GetString("Reserve", resourceCulture);
             }
         }
     }

@@ -14,7 +14,7 @@ namespace OnSpa.Prism.Helpers
     public class TranslateExtension : IMarkupExtension
     {
         private readonly CultureInfo ci;
-        private const string ResourceId = "OnSale.Prism.Resources.Resource";
+        private const string ResourceId = "OnSpa.Prism.Resources.Resource";
         private static readonly Lazy<ResourceManager> ResMgr =
             new Lazy<ResourceManager>(() => new ResourceManager(
                 ResourceId,
