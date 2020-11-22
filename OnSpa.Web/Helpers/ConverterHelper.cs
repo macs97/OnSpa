@@ -27,5 +27,25 @@ namespace OnSpa.Web.Helpers
                 ImageId = user.ImageId,
             };
         }
+
+        public ServiceType ToServiceType(ServiceTypeViewModel model, Guid imageId, bool isNew)
+        {
+            return new ServiceType
+            {
+                Id = isNew ? 0 : model.Id,
+                ImageId = imageId,
+                Name = model.Name
+            };
+        }
+
+        public ServiceTypeViewModel ToServiceTypeViewModel(ServiceType serviceType)
+        {
+            return new ServiceTypeViewModel
+            {
+                Id = serviceType.Id,
+                ImageId = serviceType.ImageId,
+                Name = serviceType.Name
+            };
+        }
     }
-  }
+}

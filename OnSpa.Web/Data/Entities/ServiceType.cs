@@ -20,10 +20,8 @@ namespace OnSpa.Web.Data.Entities
 
         public string ImageFullPath => ImageId == Guid.Empty
           ? $"https://onspa.blob.core.windows.net/service-types/images/noimage.png"
-          : $"https://onspa.blob.core.windows.net/service-types/{ImageId}";
-
-        [JsonIgnore]
-        public Service Services { get; set; }
+          : $" https://onsale.blob.core.windows.net/users/{ImageId}";
+        //Todo: Falla al guardar las imagenes para servicetype
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Price { get; set; }
