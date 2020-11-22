@@ -30,6 +30,7 @@ namespace OnSpa.Web.Data
 
         }
 
+
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();

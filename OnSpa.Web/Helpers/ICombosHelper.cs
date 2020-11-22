@@ -14,7 +14,7 @@ namespace OnSpa.Web.Helpers
 
         IEnumerable<SelectListItem> GetComboCampuses(int cityId);
 
-        IEnumerable<SelectListItem> GetComboCategories();
+        IEnumerable<SelectListItem> GetComboServiceTypes();
 
     }
 }

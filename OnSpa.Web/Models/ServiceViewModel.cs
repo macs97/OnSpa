@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using OnSpa.Web.Data.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,5 +15,14 @@ namespace OnSpa.Web.Models
 
             public IEnumerable<SelectListItem> ServiceTypes { get; set; }
 
-        }
+           [Display(Name = "Image")]
+           public IFormFile ImageFile { get; set; }
+
+           [Display(Name = "Price")]
+           [MaxLength(12)]
+           [RegularExpression(@"^\d+([\.\,]?\d+)?$", ErrorMessage = "Use only numbers and . or , to put decimals")]
+           [Required]
+           public string PriceString { get; set; }
+
     }
+}

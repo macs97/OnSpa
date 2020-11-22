@@ -44,7 +44,7 @@ namespace OnSpa.Web.Controllers
 
                 if (model.ImageFile != null)
                 {
-                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "ServiceTypes");
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "service-types");
                 }
 
                 try
@@ -101,7 +101,7 @@ namespace OnSpa.Web.Controllers
 
                 if (model.ImageFile != null)
                 {
-                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "serviceTypes");
+                    imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "service-types");
                 }
 
                 try

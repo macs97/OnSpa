@@ -29,7 +29,7 @@ namespace OnSpa.Web.Data.Entities
 
         [Display(Name = "Image")]
         public string ImageFullPath => ServiceImages == null || ServiceImages.Count == 0
-            ? $"https://onspa.blob.core.windows.net/service-types/images/noimage.png"
+          ? $"https://onspa.blob.core.windows.net/service-types/images/noimage.png"
             : ServiceImages.FirstOrDefault().ImageFullPath;
 
         public ICollection<Appointment> Appointments { get; set; }
