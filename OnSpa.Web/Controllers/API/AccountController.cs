@@ -141,7 +141,10 @@ namespace OnSpa.Web.Controllers.API
                 PhoneNumber = request.Phone,
                 UserName = request.Email,
                 ImageId = imageId,
-                UserType = UserType.Customer
+                UserType = UserType.Customer,
+                Latitude = request.Latitude,
+                Logitude = request.Logitude
+
             };
 
             IdentityResult result = await _userHelper.AddUserAsync(user, request.Password);
@@ -196,6 +199,9 @@ namespace OnSpa.Web.Controllers.API
             user.PhoneNumber = request.Phone;
             user.Document = request.Phone;
             user.ImageId = imageId;
+            user.Logitude = request.Logitude;
+            user.Latitude = request.Latitude;
+
 
             IdentityResult respose = await _userHelper.UpdateUserAsync(user);
             if (!respose.Succeeded)

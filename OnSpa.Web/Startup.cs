@@ -12,6 +12,7 @@ using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
 using System.Text;
+using Vereyon.Web;
 
 namespace OnSpa.Web
 {
@@ -75,6 +76,7 @@ namespace OnSpa.Web
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
+            services.AddFlashMessage();
 
             services.AddScoped<IApiService, ApiService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
