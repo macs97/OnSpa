@@ -143,6 +143,9 @@ namespace OnSpa.Prism.Helpers
 
         public static string RegisterMessge => Resource.RegisterMessage;
 
+        public static string LoginFacebook => Resource.LoginFacebook;
+
+        public static string ChangeOnSocialNetwork => Resource.ChangeOnSocialNetwork;
 
     }
 

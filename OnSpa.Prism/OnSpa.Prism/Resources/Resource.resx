@@ -315,4 +315,13 @@
   <data name="RegisterMessge" xml:space="preserve">
     <value>Your user has been registered ok, an email was sent to confirm the user account.</value>
   </data>
+  <data name="" xml:space="preserve">
+    <value>Users registered by social networks</value>
+  </data>
+  <data name="LoginFacebook" xml:space="preserve">
+    <value>Login With Facebook</value>
+  </data>
+  <data name="ChangeOnSocialNetwork" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

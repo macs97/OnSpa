@@ -61,6 +61,15 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users registered by social networks.
+        /// </summary>
+        internal static string _ {
+            get {
+                return ResourceManager.GetString("", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string Accept {
@@ -88,7 +97,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your address....
+        ///   Looks up a localized string similar to Enter your address.
         /// </summary>
         internal static string AddressPlaceHolder {
             get {
@@ -102,6 +111,15 @@ namespace OnSpa.Prism.Resources {
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeOnSocialNetwork {
+            get {
+                return ResourceManager.GetString("ChangeOnSocialNetwork", resourceCulture);
             }
         }
         
@@ -232,7 +250,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your document number....
+        ///   Looks up a localized string similar to Enter your document number.
         /// </summary>
         internal static string DocumentPlaceHolder {
             get {
@@ -331,7 +349,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your first name....
+        ///   Looks up a localized string similar to Enter your first name.
         /// </summary>
         internal static string FirstNamePlaceHolder {
             get {
@@ -385,7 +403,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your last name....
+        ///   Looks up a localized string similar to Enter your last name.
         /// </summary>
         internal static string LastNamePlaceHolder {
             get {
@@ -417,6 +435,15 @@ namespace OnSpa.Prism.Resources {
         internal static string LoginError {
             get {
                 return ResourceManager.GetString("LoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login With Facebook.
+        /// </summary>
+        internal static string LoginFacebook {
+            get {
+                return ResourceManager.GetString("LoginFacebook", resourceCulture);
             }
         }
         
@@ -529,7 +556,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the password confirm....
+        ///   Looks up a localized string similar to Enter the password confirm.
         /// </summary>
         internal static string PasswordConfirmPlaceHolder {
             get {
@@ -565,7 +592,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your phone....
+        ///   Looks up a localized string similar to Enter your phone.
         /// </summary>
         internal static string PhoneError {
             get {

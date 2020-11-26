@@ -2,6 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Plugin.CurrentActivity;
+using Plugin.FacebookClient;
 using Plugin.Permissions;
 using Prism;
 using Prism.Ioc;
@@ -23,12 +24,18 @@ namespace OnSpa.Prism.Droid
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            FacebookClientManager.Initialize(this);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             new SfBusyIndicatorRenderer();
             new SfRotatorRenderer();
             LoadApplication(new App(new AndroidInitializer()));
+        }
+        protected override void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            FacebookClientManager.OnActivityResult(requestCode, resultCode, data);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
