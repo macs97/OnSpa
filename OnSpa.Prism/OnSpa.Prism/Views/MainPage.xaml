@@ -6,7 +6,8 @@
              Title="{Binding Title}">
 
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
+        <Image Source="logo.PNG" HeightRequest="300" />
+        <Label Text="Welcome to on spa! come and relax" VerticalTextAlignment="Center" />
     </StackLayout>
 
 </ContentPage>
