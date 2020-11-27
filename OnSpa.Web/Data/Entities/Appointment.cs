@@ -24,5 +24,7 @@ namespace OnSpa.Web.Data.Entities
         //public string EmployeeId { get; set; }
 
         public User User { get; set; }
+
+        public Service Service { get; set; }
     }
 }
