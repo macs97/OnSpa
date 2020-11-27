@@ -159,7 +159,5 @@ namespace OnSpa.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-
     }
 }

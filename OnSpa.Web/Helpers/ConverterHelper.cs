@@ -65,12 +65,27 @@ namespace OnSpa.Web.Helpers
                 Id = isNew ? 0 : model.Id,
                 IsActive = model.IsActive,
                 Name = model.Name,
-               Price = model.Price,
-               ServiceImages = model.ServiceImages
+                Price = ToPrice(model.PriceString),
+                ServiceImages = model.ServiceImages
             };
         }
 
-       
+        private decimal ToPrice(string priceString)
+        {
+            string nds = ".";
+            if (nds == ".")
+            {
+                priceString = priceString.Replace(',', '.');
+            }
+            else
+            {
+                priceString = priceString.Replace('.', ',');
+            }
+
+            return decimal.Parse(priceString);
+        }
+
+
 
         public ServiceViewModel ToServiceViewModel(Service service)
         {
