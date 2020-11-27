@@ -21,8 +21,9 @@ namespace OnSpa.Web.Models
            [Display(Name = "Price")]
            [MaxLength(12)]
            [RegularExpression(@"^\d+([\.\,]?\d+)?$", ErrorMessage = "Use only numbers and . or , to put decimals")]
-           [Required]
-           public string PriceString { get; set; }
+
+        [Required]
+        public string PriceString { get; set; }
 
     }
 }

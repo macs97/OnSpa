@@ -60,8 +60,8 @@ namespace OnSpa.Web.Controllers
                         Guid imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "service-types");
                         service.ServiceImages = new List<ServiceImage>
                         {
-                          new ServiceImage { ImageId = imageId }
-                         };
+                            new ServiceImage { ImageId = imageId }
+                        };
                     }
 
                     _context.Add(service);

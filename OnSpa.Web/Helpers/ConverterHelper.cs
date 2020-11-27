@@ -65,15 +65,12 @@ namespace OnSpa.Web.Helpers
                 Id = isNew ? 0 : model.Id,
                 IsActive = model.IsActive,
                 Name = model.Name,
-                Price = ToPrice(model.PriceString),
-                ServiceImages = model.ServiceImages,
+               Price = model.Price,
+               ServiceImages = model.ServiceImages
             };
         }
 
-        private decimal ToPrice(string priceString)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public ServiceViewModel ToServiceViewModel(Service service)
         {
