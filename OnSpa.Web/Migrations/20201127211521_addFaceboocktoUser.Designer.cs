@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnSpa.Web.Data;
 
 namespace OnSpa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201127211521_addFaceboocktoUser")]
+    partial class addFaceboocktoUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,8 +138,6 @@ namespace OnSpa.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date");
-
-                    b.Property<string>("EmployeeId");
 
                     b.Property<bool>("IsAvailable");
 
@@ -388,7 +388,7 @@ namespace OnSpa.Web.Migrations
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.Appointment", b =>
                 {
-                    b.HasOne("OnSpa.Web.Data.Entities.Service", "Service")
+                    b.HasOne("OnSpa.Web.Data.Entities.Service")
                         .WithMany("Appointments")
                         .HasForeignKey("ServiceId");
 
