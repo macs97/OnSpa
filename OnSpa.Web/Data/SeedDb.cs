@@ -37,8 +37,12 @@ namespace OnSpa.Web.Data
             await CheckDeparmentsAsync();
             await CheckRolesAsync();
             await CheckUsersAsync();
+           
+        } 
 
-        }
+
+        
+
         private async Task CheckRolesAsync()
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
