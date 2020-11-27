@@ -1,5 +1,4 @@
-﻿using Concierto.Prism.Helpers;
-using OnSpa.Common.Helpers;
+﻿using OnSpa.Common.Helpers;
 using OnSpa.Common.Models;
 using OnSpa.Common.Request;
 using OnSpa.Common.Responses;
