@@ -45,14 +45,13 @@ namespace OnSpa.Prism.ViewModels
             TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
             User = token.User;
             Image = User.ImageFullPath;
-            LoadCountriesAsync();
         }
 
         public DelegateCommand ChangeImageCommand => _changeImageCommand ??
             (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
 
-        public DelegateCommand SaveCommand => _saveCommand ??
-            (_saveCommand = new DelegateCommand(SaveAsync));
+        /*public DelegateCommand SaveCommand => _saveCommand ??
+            (_saveCommand = new DelegateCommand(SaveAsync));*/
 
         public DelegateCommand ChangePasswordCommand => _changePasswordCommand ??
             (_changePasswordCommand = new DelegateCommand(ChangePasswordAsync));
@@ -137,7 +136,7 @@ namespace OnSpa.Prism.ViewModels
             }
         }
 
-        private async void SaveAsync()
+        /*private async void SaveAsync()
         {
             bool isValid = await ValidateDataAsync();
             if (!isValid)
@@ -166,7 +165,7 @@ namespace OnSpa.Prism.ViewModels
             {
                 Address = User.Address,
                 Document = User.Document,
-                Email = User.Em,
+                Email = User.Email,
                 FirstName = User.FirstName,
                 ImageArray = imageArray,
                 LastName = User.LastName,
@@ -256,10 +255,11 @@ namespace OnSpa.Prism.ViewModels
             }
 
             return true;
-        }
+        }*/
 
         private async void ChangePasswordAsync()
         {
         }
 
     }
+}

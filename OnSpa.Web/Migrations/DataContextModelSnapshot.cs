@@ -137,6 +137,8 @@ namespace OnSpa.Web.Migrations
 
                     b.Property<DateTime>("Date");
 
+                    b.Property<string>("EmployeeId");
+
                     b.Property<bool>("IsAvailable");
 
                     b.Property<int?>("ServiceId");
@@ -386,7 +388,7 @@ namespace OnSpa.Web.Migrations
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.Appointment", b =>
                 {
-                    b.HasOne("OnSpa.Web.Data.Entities.Service")
+                    b.HasOne("OnSpa.Web.Data.Entities.Service", "Service")
                         .WithMany("Appointments")
                         .HasForeignKey("ServiceId");
 
