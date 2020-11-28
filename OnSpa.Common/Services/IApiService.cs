@@ -19,5 +19,7 @@ namespace OnSpa.Common.Services
         Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, FacebookProfile request);
 
 
+        Task<Response> RecoverPasswordAsync(string urlBase, string servicePrefix, string controller, EmailRequest emailRequest);
+
     }
 }

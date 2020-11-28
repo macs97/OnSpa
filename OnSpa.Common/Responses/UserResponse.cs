@@ -1,5 +1,4 @@
 ﻿using OnSpa.Common.Enums;
-using OnSpa.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +22,7 @@ namespace OnSpa.Common.Responses
         public string Address { get; set; }
 
         public Guid ImageId { get; set; }
+
 
         public string ImageFacebook { get; set; }
 
@@ -48,8 +48,6 @@ namespace OnSpa.Common.Responses
         }
 
         public UserType UserType { get; set; }
-
-        public City City { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 

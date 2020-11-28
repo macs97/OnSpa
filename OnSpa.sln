@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnSpa.Common", "OnSpa.Common\OnSpa.Common.csproj", "{159638D3-068C-4116-B331-E9471711225A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnSpa.Common", "OnSpa.Common\OnSpa.Common.csproj", "{159638D3-068C-4116-B331-E9471711225A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnSpa.Web", "OnSpa.Web\OnSpa.Web.csproj", "{8E5A57DD-70C5-4FC5-A6E6-A1929A4D64F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnSpa.Web", "OnSpa.Web\OnSpa.Web.csproj", "{8E5A57DD-70C5-4FC5-A6E6-A1929A4D64F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnSpa.Prism", "OnSpa.Prism\OnSpa.Prism\OnSpa.Prism.csproj", "{43D76DE7-1701-4033-8E07-358E08C59502}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnSpa.Prism", "OnSpa.Prism\OnSpa.Prism\OnSpa.Prism.csproj", "{43D76DE7-1701-4033-8E07-358E08C59502}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnSpa.Prism.Android", "OnSpa.Prism\OnSpa.Prism.Android\OnSpa.Prism.Android.csproj", "{E87D3BB0-4976-4F9F-BDDA-8DB4E3CCEA0F}"
 EndProject

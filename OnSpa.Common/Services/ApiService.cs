@@ -180,6 +180,7 @@ namespace OnSpa.Common.Services
             }
         }
 
+
         public async Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, FacebookProfile request)
         {
             try
@@ -193,6 +194,7 @@ namespace OnSpa.Common.Services
 
                 string url = $"{servicePrefix}{controller}";
                 HttpResponseMessage response = await client.PostAsync(url, content);
+
                 string result = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
@@ -210,13 +212,18 @@ namespace OnSpa.Common.Services
                     IsSuccess = true,
                     Result = token
                 };
+                string answer = await response.Content.ReadAsStringAsync();
+                Response obj = JsonConvert.DeserializeObject<Response>(answer);
+                return obj;
             }
             catch (Exception ex)
             {
                 return new Response
                 {
                     IsSuccess = false,
+
                     Message = ex.Message
+
                 };
             }
         }

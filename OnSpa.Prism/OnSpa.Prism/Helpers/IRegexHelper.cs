@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Concierto.Prism.Helpers
+namespace OnSpa.Prism.Helpers
 {
     public interface IRegexHelper
     {

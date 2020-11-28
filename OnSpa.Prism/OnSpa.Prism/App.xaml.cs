@@ -7,8 +7,8 @@ using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using Syncfusion.Licensing;
 using OnSpa.Common.Services;
-using Concierto.Prism.Helpers;
 using OnSpa.Common.Helpers;
+using OnSpa.Prism.Helpers;
 
 namespace OnSpa.Prism
 {
