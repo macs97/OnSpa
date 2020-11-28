@@ -42,6 +42,7 @@ namespace OnSpa.Web.Data
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
             await _userHelper.CheckRoleAsync(UserType.Customer.ToString());
+            await _userHelper.CheckRoleAsync(UserType.Employee.ToString());
         }
 
         private async Task CheckUsersAsync()
@@ -58,6 +59,10 @@ namespace OnSpa.Web.Data
             for (int i = 1; i <= 50; i++)
             {
                 await CheckUserAsync($"100{i}", $"customer{i}@yopmail.com", UserType.Customer);
+            }
+            for (int i = 1; i <= 10; i++)
+            {
+                await CheckUserAsync($"300{i}", $"employee{i}@yopmail.com", UserType.Employee);
             }
         }
 
