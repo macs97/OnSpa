@@ -37,7 +37,7 @@ namespace OnSpa.Web.Data
             await CheckDeparmentsAsync();
             await CheckRolesAsync();
             await CheckUsersAsync();
-            await CheckAppointmentsAsync();
+          //  await CheckAppointmentsAsync();
 
         }
 

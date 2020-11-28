@@ -75,6 +75,7 @@ namespace OnSpa.Web
             services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
+            services.AddScoped<IAppointmentHelper, AppointmentHelper>();
 
             services.AddScoped<IApiService, ApiService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
