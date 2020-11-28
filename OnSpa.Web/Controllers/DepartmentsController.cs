@@ -6,6 +6,7 @@ using OnSpa.Web.Data.Entities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Vereyon.Web;
 
 namespace OnSpa.Web.Controllers
 {
@@ -13,13 +14,15 @@ namespace OnSpa.Web.Controllers
     public class DepartmentsController : Controller
     {
         private readonly DataContext _context;
+        private readonly IFlashMessage _flashMessage;
 
-        public DepartmentsController(DataContext context)
+        public DepartmentsController(DataContext context, IFlashMessage flashMessage)
         {
             _context = context;
+            _flashMessage = flashMessage;
         }
 
-        
+
         public async Task<IActionResult> Index()
         {
             return View(await _context.Departments
@@ -140,7 +143,7 @@ namespace OnSpa.Web.Controllers
             return View(department);
         }
 
-        
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,12 +160,20 @@ namespace OnSpa.Web.Controllers
             {
                 return NotFound();
             }
+            try
+            {
+                _context.Departments.Remove(department);
+                await _context.SaveChangesAsync();
+                _flashMessage.Confirmation("The department was deleted.");
 
-            _context.Departments.Remove(department);
-            await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                _flashMessage.Danger("The department can't be deleted because it has related records.");
+
+            }
             return RedirectToAction(nameof(Index));
         }
-
 
         public async Task<IActionResult> AddCity(int? id)
         {

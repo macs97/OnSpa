@@ -5,8 +5,6 @@ using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnSpa.Web.Helpers
@@ -39,7 +37,7 @@ namespace OnSpa.Web.Helpers
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<IdentityResult> AddUserAsync( User user, string password)
+        public async Task<IdentityResult> AddUserAsync(User user, string password)
         {
             return await _userManager.CreateAsync(user, password);
         }
@@ -89,7 +87,10 @@ namespace OnSpa.Web.Helpers
                 ImageId = imageId,
                 PhoneNumber = model.PhoneNumber,
                 UserName = model.Username,
-                UserType = userType
+                UserType = userType,
+                Latitude = model.Latitude,
+                Logitude = model.Logitude
+
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);

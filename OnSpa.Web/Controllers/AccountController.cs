@@ -8,7 +8,6 @@ using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
 using OnSpa.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -158,7 +157,10 @@ namespace OnSpa.Web.Controllers
                 PhoneNumber = user.PhoneNumber,
                 ImageId = user.ImageId,
                 Id = user.Id,
-                Document = user.Document
+                Document = user.Document,
+                Latitude = user.Latitude,
+                Logitude = user.Logitude
+
             };
 
             return View(model);
@@ -185,6 +187,8 @@ namespace OnSpa.Web.Controllers
                 user.PhoneNumber = model.PhoneNumber;
                 user.ImageId = imageId;
                 user.Document = model.Document;
+                user.Latitude = model.Latitude;
+                user.Logitude = model.Logitude;
 
                 await _userHelper.UpdateUserAsync(user);
                 return RedirectToAction("Index", "Home");
@@ -343,7 +347,7 @@ namespace OnSpa.Web.Controllers
         }
 
 
- 
+
     }
 }
 

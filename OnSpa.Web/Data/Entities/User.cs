@@ -41,5 +41,11 @@ namespace OnSpa.Web.Data.Entities
 
         [Display(Name = "User")]
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public double Latitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public double Logitude { get; set; }
+
     }
 }

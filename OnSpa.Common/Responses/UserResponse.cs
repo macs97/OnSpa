@@ -28,6 +28,11 @@ namespace OnSpa.Common.Responses
 
         public UserType UserType { get; set; }
 
+        //public string ImageFullPath => ImageId == Guid.Empty
+            //? $"https://onsalezulu.azurewebsites.net/images/noimage.png"
+            //: $"https://onsale.blob.core.windows.net/users/{ImageId}";
+
+        public UserType UserType { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 

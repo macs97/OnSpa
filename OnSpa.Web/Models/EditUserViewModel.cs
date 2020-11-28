@@ -43,6 +43,13 @@ namespace OnSpa.Web.Models
 
         [Display(Name = "Image")]
         public IFormFile ImageFile { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public double Latitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public double Logitude { get; set; }
+
     }
 
 }

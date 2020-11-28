@@ -33,6 +33,10 @@ namespace OnSpa.Common.Request
 
         public string PasswordConfirm { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Logitude { get; set; }
+
     }
 
 }
