@@ -137,6 +137,8 @@ namespace OnSpa.Web.Migrations
 
                     b.Property<DateTime>("Date");
 
+                    b.Property<string>("EmployeeId");
+
                     b.Property<bool>("IsAvailable");
 
                     b.Property<int?>("ServiceId");
@@ -334,9 +336,10 @@ namespace OnSpa.Web.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
+                    b.Property<int>("LoginType");
 
                     b.Property<double>("Logitude");
-                    b.Property<int>("LoginType");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnSpa.Web.Migrations
 {
-    public partial class fixMergeDB : Migration
+    public partial class fixDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,7 +48,9 @@ namespace OnSpa.Web.Migrations
                     ImageId = table.Column<Guid>(nullable: false),
                     LoginType = table.Column<int>(nullable: false),
                     ImageFacebook = table.Column<string>(nullable: true),
-                    UserType = table.Column<int>(nullable: false)
+                    UserType = table.Column<int>(nullable: false),
+                    Latitude = table.Column<double>(nullable: false),
+                    Logitude = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,16 +71,18 @@ namespace OnSpa.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Services",
+                name: "ServiceTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false)
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    ImageId = table.Column<Guid>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.PrimaryKey("PK_ServiceTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -208,6 +212,49 @@ namespace OnSpa.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false),
+                    ServiceTypeId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Services_ServiceTypes_ServiceTypeId",
+                        column: x => x.ServiceTypeId,
+                        principalTable: "ServiceTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Campuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    CityId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Campuses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Campuses_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Appointments",
                 columns: table => new
                 {
@@ -237,45 +284,23 @@ namespace OnSpa.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServiceTypes",
+                name: "ServiceImages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
                     ImageId = table.Column<Guid>(nullable: false),
-                    ServicesId = table.Column<int>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false)
+                    ServiceId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiceTypes", x => x.Id);
+                    table.PrimaryKey("PK_ServiceImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServiceTypes_Services_ServicesId",
-                        column: x => x.ServicesId,
+                        name: "FK_ServiceImages_Services_ServiceId",
+                        column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Campuses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    CityId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Campuses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Campuses_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -380,14 +405,31 @@ namespace OnSpa.Web.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ServiceImages_ServiceId",
+                table: "ServiceImages",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_Name",
+                table: "Services",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Services_ServiceTypeId",
+                table: "Services",
+                column: "ServiceTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ServiceTypeCampuses_CampusId",
                 table: "ServiceTypeCampuses",
                 column: "CampusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceTypes_ServicesId",
+                name: "IX_ServiceTypes_Name",
                 table: "ServiceTypes",
-                column: "ServicesId");
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -411,6 +453,9 @@ namespace OnSpa.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ServiceImages");
+
+            migrationBuilder.DropTable(
                 name: "ServiceTypeCampuses");
 
             migrationBuilder.DropTable(
@@ -420,6 +465,9 @@ namespace OnSpa.Web.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Services");
+
+            migrationBuilder.DropTable(
                 name: "Campuses");
 
             migrationBuilder.DropTable(
@@ -427,9 +475,6 @@ namespace OnSpa.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cities");
-
-            migrationBuilder.DropTable(
-                name: "Services");
 
             migrationBuilder.DropTable(
                 name: "Departments");

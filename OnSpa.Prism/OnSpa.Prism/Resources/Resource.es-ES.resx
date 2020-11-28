@@ -172,7 +172,7 @@
     <value>Documento</value>
   </data>
   <data name="DocumentPlaceHolder" xml:space="preserve">
-    <value>¡Ingrese su número de documento</value>
+    <value>Ingrese su número de documento</value>
   </data>
   <data name="DocumentError" xml:space="preserve">
     <value>Debes ingresar un documento.</value>
@@ -318,7 +318,10 @@
   <data name="LoginFacebook" xml:space="preserve">
     <value>Iniciar sesión con Facebook</value>
   </data>
-  <data name="" xml:space="preserve">
+  <data name="_Empty[1]" xml:space="preserve">
     <value>Usuarios registrados por redes sociales</value>
+  </data>
+  <data name="ChangeOnSocialNetwork" xml:space="preserve">
+    <value>Los usuarios registrados por redes sociales, deberán cambiar la foto o contraseña en la red social.</value>
   </data>
 </root>

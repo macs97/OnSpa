@@ -25,6 +25,5 @@ namespace OnSpa.Web.Data.Entities
 
         public User User { get; set; }
 
-        public Service Service { get; set; }
     }
 }

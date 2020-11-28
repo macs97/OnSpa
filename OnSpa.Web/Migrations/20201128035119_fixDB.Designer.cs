@@ -10,8 +10,8 @@ using OnSpa.Web.Data;
 namespace OnSpa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201128031741_fixMergeDB")]
-    partial class fixMergeDB
+    [Migration("20201128035119_fixDB")]
+    partial class fixDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -224,13 +224,43 @@ namespace OnSpa.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsActive");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<decimal>("Price");
+
+                    b.Property<int?>("ServiceTypeId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("ServiceTypeId");
+
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("ImageId");
+
+                    b.Property<int?>("ServiceId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("ServiceImages");
                 });
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceType", b =>
@@ -247,11 +277,10 @@ namespace OnSpa.Web.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int?>("ServicesId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ServicesId");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("ServiceTypes");
                 });
@@ -303,11 +332,15 @@ namespace OnSpa.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<double>("Latitude");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<int>("LoginType");
+
+                    b.Property<double>("Logitude");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -415,11 +448,18 @@ namespace OnSpa.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceType", b =>
+            modelBuilder.Entity("OnSpa.Web.Data.Entities.Service", b =>
                 {
-                    b.HasOne("OnSpa.Web.Data.Entities.Service", "Services")
-                        .WithMany("ServiceTypes")
-                        .HasForeignKey("ServicesId");
+                    b.HasOne("OnSpa.Web.Data.Entities.ServiceType", "ServiceType")
+                        .WithMany()
+                        .HasForeignKey("ServiceTypeId");
+                });
+
+            modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceImage", b =>
+                {
+                    b.HasOne("OnSpa.Web.Data.Entities.Service")
+                        .WithMany("ServiceImages")
+                        .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.ServiceTypeCampus", b =>
