@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnSpa.Web.Data;
 
 namespace OnSpa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201127211726_employedid")]
+    partial class employedid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,6 +138,8 @@ namespace OnSpa.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date");
+
+                    b.Property<string>("EmployeeId");
 
                     b.Property<bool>("IsAvailable");
 
@@ -299,15 +303,12 @@ namespace OnSpa.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<double>("Latitude");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-
-                    b.Property<double>("Logitude");
                     b.Property<int>("LoginType");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
 
@@ -389,7 +390,7 @@ namespace OnSpa.Web.Migrations
 
             modelBuilder.Entity("OnSpa.Web.Data.Entities.Appointment", b =>
                 {
-                    b.HasOne("OnSpa.Web.Data.Entities.Service")
+                    b.HasOne("OnSpa.Web.Data.Entities.Service", "Service")
                         .WithMany("Appointments")
                         .HasForeignKey("ServiceId");
 

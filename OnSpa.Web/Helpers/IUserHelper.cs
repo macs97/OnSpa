@@ -37,5 +37,8 @@ namespace OnSpa.Web.Helpers
 
         Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
 
+        Task<User> AddUserAsync(Common.Models.FacebookProfile model);
+
+
     }
 }

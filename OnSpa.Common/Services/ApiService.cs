@@ -180,12 +180,13 @@ namespace OnSpa.Common.Services
             }
         }
 
-        public async Task<Response> RecoverPasswordAsync(string urlBase, string servicePrefix, string controller, EmailRequest emailRequest)
+
+        public async Task<Response> GetTokenAsync(string urlBase, string servicePrefix, string controller, FacebookProfile request)
         {
             try
             {
-                string request = JsonConvert.SerializeObject(emailRequest);
-                StringContent content = new StringContent(request, Encoding.UTF8, "application/json");
+                string requestString = JsonConvert.SerializeObject(request);
+                StringContent content = new StringContent(requestString, Encoding.UTF8, "application/json");
                 HttpClient client = new HttpClient
                 {
                     BaseAddress = new Uri(urlBase)
@@ -193,6 +194,24 @@ namespace OnSpa.Common.Services
 
                 string url = $"{servicePrefix}{controller}";
                 HttpResponseMessage response = await client.PostAsync(url, content);
+
+                string result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = result,
+                    };
+                }
+
+                TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(result);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = token
+                };
                 string answer = await response.Content.ReadAsStringAsync();
                 Response obj = JsonConvert.DeserializeObject<Response>(answer);
                 return obj;
@@ -202,7 +221,9 @@ namespace OnSpa.Common.Services
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = ex.Message,
+
+                    Message = ex.Message
+
                 };
             }
         }

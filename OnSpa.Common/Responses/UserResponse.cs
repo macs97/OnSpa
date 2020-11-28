@@ -23,14 +23,28 @@ namespace OnSpa.Common.Responses
 
         public Guid ImageId { get; set; }
 
-        public string ImageFullPath { get; set; }
 
+        public string ImageFacebook { get; set; }
 
-        public UserType UserType { get; set; }
+        public LoginType LoginType { get; set; }
 
-        //public string ImageFullPath => ImageId == Guid.Empty
-            //? $"https://onsalezulu.azurewebsites.net/images/noimage.png"
-            //: $"https://onsale.blob.core.windows.net/users/{ImageId}";
+        public string ImageFullPath
+        {
+            get
+            {
+                if (LoginType == LoginType.Facebook && string.IsNullOrEmpty(ImageFacebook) ||
+                    LoginType == LoginType.OnSpa && ImageId == Guid.Empty)
+                {
+                    return $"https://onspa.blob.core.windows.net/users/images/noimage.png";
+                }
+
+                if (LoginType == LoginType.Facebook)
+                {
+                    return ImageFacebook;
+                }
+                return $"https://onspa.blob.core.windows.net/users/{ImageId}";//
+            }
+        }
 
         public UserType UserType { get; set; }
 
