@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Concierto.Common.Models
+namespace OnSpa.Common.Models
 {
     public class Menu
     {
