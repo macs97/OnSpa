@@ -86,6 +86,25 @@ namespace OnSpa.Web.Helpers
             return list;
         }
 
+        public IEnumerable<SelectListItem> GetComboServiceTypes()
+        {
+            List<SelectListItem> list = _context.ServiceTypes.Select(t => new SelectListItem
+            {
+                Text = t.Name,
+                Value = $"{t.Id}"
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
 
+            list.Insert(0, new SelectListItem
+            {
+                Text = "[Select a ServiceType...]",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
+
 }
+

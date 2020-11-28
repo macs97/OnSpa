@@ -19,14 +19,17 @@ namespace OnSpa.Web.Data
         public DbSet<Department> Departments { get; set; }
 
         public DbSet<Service> Services { get; set; }
-        
-       public DbSet<ServiceType> ServiceTypes { get; set; }
+
+        public DbSet<ServiceImage> ServiceImages { get; set; }
+
+        public DbSet<ServiceType> ServiceTypes { get; set; }
 
         public DbSet<ServiceTypeCampus> ServiceTypeCampuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<Department>(deparment =>
             {
@@ -58,6 +61,14 @@ namespace OnSpa.Web.Data
                 .HasOne(sc => sc.ServiceType)
                 .WithMany(s => s.ServiceTypeCampuses)
                 .HasForeignKey(sc => sc.ServiceTypeId);
+
+            modelBuilder.Entity<Service>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<ServiceType>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
         }
     }
 }

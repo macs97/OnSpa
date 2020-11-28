@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿    using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -77,6 +77,7 @@ namespace OnSpa.Web
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
             services.AddFlashMessage();
+            services.AddScoped<IAppointmentHelper, AppointmentHelper>();
 
             services.AddScoped<IApiService, ApiService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -18,12 +18,11 @@ namespace OnSpa.Web.Data.Entities
         [Display(Name = "Image")]
         public Guid ImageId { get; set; }
 
+        [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty
-          ? $"https://onspa.blob.core.windows.net/service-types/images/noimage.png"
+          ? $"https://localhost:44307/images/noimage.png"
           : $"https://onspa.blob.core.windows.net/service-types/{ImageId}";
 
-        [JsonIgnore]
-        public Service Services { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal Price { get; set; }

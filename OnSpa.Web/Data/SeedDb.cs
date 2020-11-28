@@ -30,14 +30,20 @@ namespace OnSpa.Web.Data
 
         }
 
+
         public async Task SeedAsync()
         {
             await _context.Database.EnsureCreatedAsync();
             await CheckDeparmentsAsync();
             await CheckRolesAsync();
             await CheckUsersAsync();
+          //  await CheckAppointmentsAsync();
 
         }
+
+
+
+
         private async Task CheckRolesAsync()
         {
             await _userHelper.CheckRoleAsync(UserType.Admin.ToString());
@@ -155,6 +161,41 @@ namespace OnSpa.Web.Data
                 });
                 await _context.SaveChangesAsync();
             }
+        }
+
+
+        private async Task CheckAppointmentsAsync()
+        {
+            if (!_context.Appointments.Any())
+            {
+                var initialDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
+                var finalDate = initialDate.AddYears(1);
+                while (initialDate < finalDate)
+                {
+                    if (initialDate.DayOfWeek != DayOfWeek.Sunday)
+                    {
+                        var finalDate2 = initialDate.AddHours(10);
+                        while (initialDate < finalDate2)
+                        {
+                            _context.Appointments.Add(new Entities.Appointment
+                            {
+                                Date = initialDate,
+                                IsAvailable = true
+                            });
+
+                            initialDate = initialDate.AddMinutes(30);
+                        }
+
+                        initialDate = initialDate.AddHours(14);
+                    }
+                    else
+                    {
+                        initialDate = initialDate.AddDays(1);
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
         }
     }
 

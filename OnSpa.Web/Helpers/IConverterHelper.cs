@@ -13,5 +13,17 @@ namespace OnSpa.Web.Helpers
 
         UserViewModel ToUserViewModel(User user);
 
+        ServiceType ToServiceType(ServiceTypeViewModel model, Guid imageId, bool isNew);
+
+        ServiceTypeViewModel ToServiceTypeViewModel(ServiceType serviceType);
+
+            
+
+        Task<Service> ToServiceAsync(ServiceViewModel model, bool isNew);
+
+        ServiceViewModel ToServiceViewModel(Service service);
+
+
+
     }
 }
