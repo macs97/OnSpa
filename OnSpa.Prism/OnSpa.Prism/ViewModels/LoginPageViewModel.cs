@@ -7,6 +7,7 @@ using OnSpa.Prism.Helpers;
 using OnSpa.Prism.Views;
 using Prism.Commands;
 using Prism.Navigation;
+using System;
 using Xamarin.Essentials;
 
 namespace OnSpa.Prism.ViewModels
@@ -21,9 +22,10 @@ namespace OnSpa.Prism.ViewModels
         private DelegateCommand _loginCommand;
         private DelegateCommand _registerCommand;
         private DelegateCommand _forgotPasswordCommand;
-        public LoginPageViewModel(INavigationService navigationService) : base(navigationService)
+        public LoginPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
             _navigationService = navigationService;
+            _apiService = apiService;
             Title = Languages.Login;
             IsEnabled = true;
         }
@@ -86,7 +88,7 @@ namespace OnSpa.Prism.ViewModels
             TokenRequest request = new TokenRequest
             {
                 Password = Password,
-                Email = Email
+                Username = Email
             };
 
             Response response = await _apiService.GetTokenAsync(url, "api", "/Account/CreateToken", request);
@@ -100,8 +102,8 @@ namespace OnSpa.Prism.ViewModels
                 return;
             }
 
-            TokenResponse token = (TokenResponse)response.Result;
-            //Settings.Token = JsonConvert.SerializeObject(token);
+            LoginResponse token = (LoginResponse)response.Result;
+            Settings.Token = JsonConvert.SerializeObject(token);
             Settings.IsLogin = true;
 
             IsRunning = false;

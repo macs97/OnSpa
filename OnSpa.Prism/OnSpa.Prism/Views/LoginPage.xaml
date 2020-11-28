@@ -15,6 +15,9 @@
                      Padding="5">
             <ScrollView>
                 <StackLayout>
+                    <Image HeightRequest="150"
+                           Margin="20"
+                           Source="onspa"/>
 
                     <StackLayout VerticalOptions="CenterAndExpand">
                         <inputLayout:SfTextInputLayout Hint="Email" 
@@ -33,16 +36,31 @@
                         </inputLayout:SfTextInputLayout>
                     </StackLayout>
 
+                    <Label FontAttributes="Bold"
+                           HorizontalOptions="Center" 
+                           Text="{i18n:Translate ForgotPassword}"
+                           TextColor="{StaticResource ColorAccent}"
+                           VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+
                 </StackLayout>
             </ScrollView>
             <StackLayout VerticalOptions="EndAndExpand">
                 <Button Command="{Binding LoginCommand}" 
                         IsEnabled="{Binding IsEnabled}"
                         Text="Login"/>
-                <Button Command="{Binding LoginCommand}" 
+                <Button BackgroundColor="#4768AD" 
+                     Command="{Binding LoginFacebookCommand}"
+                        HeightRequest="45"
                         IsEnabled="{Binding IsEnabled}"
-                        Text="Register Facebook"
-                        Style="{StaticResource SecondaryButton}"/>
+                        ImageSource="ic_fb"
+                        Text="{i18n:Translate LoginFacebook}"
+                        TextColor="#FFFFFF"/>
+
                 <Button Command="{Binding RegisterCommand}" 
                         IsEnabled="{Binding IsEnabled}"
                         Text="Register"

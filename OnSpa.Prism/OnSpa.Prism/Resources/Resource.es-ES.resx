@@ -121,7 +121,7 @@
     <value>Error</value>
   </data>
   <data name="ConnectionError" xml:space="preserve">
-    <value>Compruebe la conexión a Internet</value>
+    <value>Compruebe la conexión a Internet.</value>
   </data>
   <data name="Accept" xml:space="preserve">
     <value>Aceptar</value>
@@ -133,7 +133,7 @@
     <value>Cargando</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Fecha:</value>
+    <value>Fecha</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Iniciar sesión</value>
@@ -145,10 +145,10 @@
     <value>Introduzca su dirección de correo electrónico</value>
   </data>
   <data name="EmailError" xml:space="preserve">
-    <value>Debes introducir una dirección de correo válida.</value>
+    <value>Debes introducir una dirección de correo válida</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>&amp;Contraseña:</value>
+    <value>Contraseña</value>
   </data>
   <data name="PasswordPlaceHolder" xml:space="preserve">
     <value>Escriba la contraseña</value>
@@ -157,7 +157,7 @@
     <value>Reg. nuevo usuario</value>
   </data>
   <data name="LoginError" xml:space="preserve">
-    <value>¡Correo electrónico o contraseña incorrectos!</value>
+    <value>Correo electrónico o contraseña incorrectos</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Cerrar sesión</value>
@@ -166,16 +166,16 @@
     <value>Debe escribir una contraseña válida</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>¿Olvidó la contraseña?</value>
+    <value>Olvidó la contraseña</value>
   </data>
   <data name="Document" xml:space="preserve">
     <value>Documento</value>
   </data>
   <data name="DocumentPlaceHolder" xml:space="preserve">
-    <value>¡Ingrese su número de documento!</value>
+    <value>¡Ingrese su número de documento</value>
   </data>
   <data name="DocumentError" xml:space="preserve">
-    <value>Debes ingresar un documento.!</value>
+    <value>Debes ingresar un documento.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Nombre</value>
@@ -211,25 +211,25 @@
     <value>Ingrese su celular</value>
   </data>
   <data name="PhonePlaceHolder" xml:space="preserve">
-    <value>Debes poner un número de teléfono</value>
+    <value>Debes poner un número de teléfono.</value>
   </data>
   <data name="PasswordConfirm" xml:space="preserve">
     <value>Confirmar contraseña</value>
   </data>
   <data name="PasswordConfirmError1" xml:space="preserve">
-    <value>Debes ingresar una contraseña</value>
+    <value>Debes ingresar una contraseña.</value>
   </data>
   <data name="PasswordConfirmError2" xml:space="preserve">
     <value>La contraseña y la confirmación de contraseña no coinciden.</value>
   </data>
   <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
-    <value>¡Introduzca la contraseña confirm!</value>
+    <value>Introduzca la contraseña confirmar</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>Aceptar</value>
   </data>
   <data name="RegisterMessage" xml:space="preserve">
-    <value>Su usuario se ha registrado correctamente, se envió un correo electrónico para confirmar la cuenta de usuario.!</value>
+    <value>Su usuario se ha registrado correctamente, se envió un correo electrónico para confirmar la cuenta de usuario.</value>
   </data>
   <data name="PictureSource" xml:space="preserve">
     <value>¿Dónde quieres hacer la foto?</value>
@@ -244,34 +244,34 @@
     <value>De la galería</value>
   </data>
   <data name="NoCameraSupported" xml:space="preserve">
-    <value>El dispositivo no admite el acceso a la cámara.!</value>
+    <value>El dispositivo no admite el acceso a la cámara.</value>
   </data>
   <data name="NoGallerySupported" xml:space="preserve">
-    <value>El dispositivo no admite el acceso a la galería.!</value>
+    <value>El dispositivo no admite el acceso a la galería.</value>
   </data>
   <data name="RecoverPassword" xml:space="preserve">
     <value>Recuperar contraseña</value>
   </data>
   <data name="RecoverPasswordMessage" xml:space="preserve">
-    <value>Se envió un correo electrónico para cambiar su contraseña.!</value>
+    <value>Se envió un correo electrónico para cambiar su contraseña.</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Cambiar contraseña</value>
   </data>
   <data name="ChangeUserMessage" xml:space="preserve">
-    <value>Usuario actualizado</value>
+    <value>Usuario actualizado.</value>
   </data>
   <data name="ConfirmNewPassword" xml:space="preserve">
     <value>Confirmar nueva contraseña</value>
   </data>
   <data name="ConfirmNewPasswordError1" xml:space="preserve">
-    <value>Debe ingresar una confirmación para la nueva contraseña.!</value>
+    <value>Debe ingresar una confirmación para la nueva contraseña.</value>
   </data>
   <data name="ConfirmNewPasswordError2" xml:space="preserve">
-    <value>La confirmación de la contraseña no coincide</value>
+    <value>La confirmación de la contraseña no coincide.</value>
   </data>
   <data name="ConfirmNewPasswordPlaceHolder" xml:space="preserve">
-    <value>Ingrese la confirmación de la nueva contraseña ...!</value>
+    <value>Ingrese la confirmación de la nueva contraseña ...</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Contraseña actual</value>
@@ -280,18 +280,45 @@
     <value>Debe introducir su nueva contraseña.</value>
   </data>
   <data name="CurrentPasswordPlaceHolder" xml:space="preserve">
-    <value>Escriba la contraseña actual.</value>
+    <value>Escriba la contraseña actual....</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>Contraseña nueva:</value>
+    <value>Contraseña nueva</value>
   </data>
   <data name="NewPasswordError" xml:space="preserve">
     <value>Debe introducir la nueva contraseña.</value>
   </data>
   <data name="NewPasswordPlaceHolder" xml:space="preserve">
-    <value>Escribe la nueva contraseña</value>
+    <value>Escribe la nueva contraseña...</value>
   </data>
   <data name="ChangePassworrdMessage" xml:space="preserve">
     <value>La contraseña se cambió correctamente.</value>
+  </data>
+  <data name="Reserve" xml:space="preserve">
+    <value>Reserva</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="Error001" xml:space="preserve">
+    <value>No se ha encontrado.</value>
+  </data>
+  <data name="Error002" xml:space="preserve">
+    <value>Producto no encontrado.</value>
+  </data>
+  <data name="Error003" xml:space="preserve">
+    <value>Ya hay un usuario registrado con el correo electrónico.</value>
+  </data>
+  <data name="Error004" xml:space="preserve">
+    <value>No se ha encontrado.</value>
+  </data>
+  <data name="RegisterMessge" xml:space="preserve">
+    <value>Su usuario se ha registrado correctamente, se envió un correo electrónico para confirmar la cuenta de usuario.</value>
+  </data>
+  <data name="LoginFacebook" xml:space="preserve">
+    <value>Iniciar sesión con Facebook</value>
+  </data>
+  <data name="" xml:space="preserve">
+    <value>Usuarios registrados por redes sociales</value>
   </data>
 </root>

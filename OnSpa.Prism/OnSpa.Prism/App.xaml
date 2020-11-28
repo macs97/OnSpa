@@ -8,6 +8,7 @@
 
             <!-- Application resource dictionary -->
             <x:String x:Key="UrlAPI">https://onspa.azurewebsites.net</x:String>
+            <x:String x:Key="UrlNoImage">https://onspa.blob.core.windows.net/users/noimage.png</x:String>
 
             <!-- Colors -->
             <Color x:Key="ColorBackground">#F0FFF0</Color>

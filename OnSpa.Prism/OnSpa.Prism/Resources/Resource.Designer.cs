@@ -61,6 +61,15 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users registered by social networks.
+        /// </summary>
+        internal static string _ {
+            get {
+                return ResourceManager.GetString("", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string Accept {
@@ -102,6 +111,15 @@ namespace OnSpa.Prism.Resources {
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ChangeOnSocialNetwork {
+            get {
+                return ResourceManager.GetString("ChangeOnSocialNetwork", resourceCulture);
             }
         }
         
@@ -277,6 +295,42 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User no found..
+        /// </summary>
+        internal static string Error001 {
+            get {
+                return ResourceManager.GetString("Error001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product no found..
+        /// </summary>
+        internal static string Error002 {
+            get {
+                return ResourceManager.GetString("Error002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A user with that email is already registered..
+        /// </summary>
+        internal static string Error003 {
+            get {
+                return ResourceManager.GetString("Error003", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City no found..
+        /// </summary>
+        internal static string Error004 {
+            get {
+                return ResourceManager.GetString("Error004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First name.
         /// </summary>
         internal static string FirstName {
@@ -381,6 +435,15 @@ namespace OnSpa.Prism.Resources {
         internal static string LoginError {
             get {
                 return ResourceManager.GetString("LoginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login With Facebook.
+        /// </summary>
+        internal static string LoginFacebook {
+            get {
+                return ResourceManager.GetString("LoginFacebook", resourceCulture);
             }
         }
         
@@ -556,6 +619,15 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Record.
+        /// </summary>
+        internal static string Record {
+            get {
+                return ResourceManager.GetString("Record", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recover Password.
         /// </summary>
         internal static string RecoverPassword {
@@ -588,6 +660,24 @@ namespace OnSpa.Prism.Resources {
         internal static string RegisterMessage {
             get {
                 return ResourceManager.GetString("RegisterMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your user has been registered ok, an email was sent to confirm the user account..
+        /// </summary>
+        internal static string RegisterMessge {
+            get {
+                return ResourceManager.GetString("RegisterMessge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reserve.
+        /// </summary>
+        internal static string Reserve {
+            get {
+                return ResourceManager.GetString("Reserve", resourceCulture);
             }
         }
     }

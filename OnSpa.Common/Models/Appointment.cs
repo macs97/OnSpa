@@ -12,10 +12,10 @@ namespace OnSpa.Common.Models
 
         public bool IsAvailable { get; set; }
 
-        public DateTime DateLocal => Date.ToLocalTime();
+        public DateTime DateLocal { get; set; }
 
-        public Service Service { get; set; }
-        public string EmployeeId { get; set; }
+        //public Service Service { get; set; }
+        //public string EmployeeId { get; set; }
 
         public User User { get; set; }
     }

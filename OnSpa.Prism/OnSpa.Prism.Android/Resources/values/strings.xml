@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">On Spa</string>
+	<string name="facebook_app_name">OnSpa</string>
+	<string name="facebook_app_id">126903672354514</string>
+	<string name="fb_login_protocol_scheme">fb126903672354514</string>
+
 </resources>

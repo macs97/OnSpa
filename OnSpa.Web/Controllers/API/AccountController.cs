@@ -70,8 +70,8 @@ namespace OnSpa.Web.Controllers.API
                             signingCredentials: credentials);
                         var results = new
                         {
-                            token = new JwtSecurityTokenHandler().WriteToken(token),
-                            expiration = token.ValidTo,
+                            Token = new JwtSecurityTokenHandler().WriteToken(token),
+                            Expiration = token.ValidTo,
                             user
                         };
 
@@ -241,6 +241,39 @@ namespace OnSpa.Web.Controllers.API
                     Message = "Error005"
                 });
             }
+
+            return Ok(new Response { IsSuccess = true });
+        }
+
+
+        [HttpPost]
+        [Route("RecoverPassword")]
+        public async Task<IActionResult> RecoverPassword([FromBody] EmailRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            User user = await _userHelper.GetUserAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error001"
+                });
+            }
+
+            string myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
+            string link = Url.Action("ResetPassword", "Account", new { token = myToken }, protocol: HttpContext.Request.Scheme);
+            _mailHelper.SendMail(request.Email, "Password Recover", $"<h1>Password Recover</h1>" +
+                $"Click on the following link to change your password:<p>" +
+                $"<a href = \"{link}\">Change Password</a></p>");
 
             return Ok(new Response { IsSuccess = true });
         }

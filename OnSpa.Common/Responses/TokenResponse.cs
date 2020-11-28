@@ -15,4 +15,5 @@ namespace OnSpa.Common.Responses
 
         public DateTime ExpirationLocal => Expiration.ToLocalTime();
     }
+
 }

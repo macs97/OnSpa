@@ -129,6 +129,24 @@ namespace OnSpa.Prism.Helpers
 
         public static string NewPasswordPlaceHolder => Resource.NewPasswordPlaceHolder;
         public static string ChangePassworrdMessage => Resource.ChangePassworrdMessage;
+
+        public static string Record => Resource.Record;
+
+        public static string Reserve => Resource.Reserve;
+        public static string Error001 => Resource.Error001;
+
+        public static string Error002 => Resource.Error002;
+
+        public static string Error003 => Resource.Error003;
+
+        public static string Error004 => Resource.Error004;
+
+        public static string RegisterMessge => Resource.RegisterMessage;
+
+        public static string LoginFacebook => Resource.LoginFacebook;
+
+        public static string ChangeOnSocialNetwork => Resource.ChangeOnSocialNetwork;
+
     }
 
 }

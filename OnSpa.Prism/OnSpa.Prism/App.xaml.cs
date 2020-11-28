@@ -6,6 +6,9 @@ using Xamarin.Essentials.Interfaces;
 using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using Syncfusion.Licensing;
+using OnSpa.Common.Services;
+using OnSpa.Common.Helpers;
+using OnSpa.Prism.Helpers;
 
 namespace OnSpa.Prism
 {
@@ -27,7 +30,9 @@ namespace OnSpa.Prism
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IAppInfo, AppInfoImplementation>();
-
+            containerRegistry.Register<IApiService, ApiService>();
+            containerRegistry.Register<IRegexHelper, RegexHelper>();
+            containerRegistry.Register<IFilesHelper, FilesHelper>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
@@ -36,6 +41,8 @@ namespace OnSpa.Prism
             containerRegistry.RegisterForNavigation<RecoverPasswordPage, RecoverPasswordPageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<ReservePage, ReservePageViewModel>();
+            containerRegistry.RegisterForNavigation<RecordPage, RecordPageViewModel>();
         }
     }
 }

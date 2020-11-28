@@ -1,4 +1,5 @@
-﻿using OnSpa.Common.Helpers;
+﻿using Newtonsoft.Json;
+using OnSpa.Common.Helpers;
 using OnSpa.Common.Models;
 using OnSpa.Common.Request;
 using OnSpa.Common.Responses;
@@ -8,46 +9,53 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
 using Prism.Navigation;
-using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace OnSpa.Prism.ViewModels
 {
-    public class RegisterPageViewModel : ViewModelBase
+    public class ModifyUserPageViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private readonly IRegexHelper _regexHelper;
         private readonly IApiService _apiService;
+        private readonly IFilesHelper _filesHelper;
         private ImageSource _image;
-        private UserRequest _user;
+        private User _user;
         private bool _isRunning;
         private bool _isEnabled;
-        private DelegateCommand _registerCommand;
-        private readonly IFilesHelper _filesHelper;
         private MediaFile _file;
         private DelegateCommand _changeImageCommand;
+        private DelegateCommand _saveCommand;
+        private DelegateCommand _changePasswordCommand;
 
-
-        public RegisterPageViewModel(INavigationService navigationService,
-        IRegexHelper regexHelper,
-        IApiService apiService,
-        IFilesHelper filesHelper)
-        : base(navigationService)
+        public ModifyUserPageViewModel(
+            INavigationService navigationService,
+            IApiService apiService,
+            IFilesHelper filesHelper)
+            : base(navigationService)
         {
             _navigationService = navigationService;
-            _regexHelper = regexHelper;
             _apiService = apiService;
             _filesHelper = filesHelper;
-            Title = Languages.Register;
-            Image = App.Current.Resources["UrlNoImage"].ToString();
+            Title = Languages.ModifyUser;
             IsEnabled = true;
-            User = new UserRequest();
+            TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            User = token.User;
+            Image = User.ImageFullPath;
+            LoadCountriesAsync();
         }
 
-        public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(RegisterAsync));
+        public DelegateCommand ChangeImageCommand => _changeImageCommand ??
+            (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
 
-        public DelegateCommand ChangeImageCommand => _changeImageCommand ?? (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
+        public DelegateCommand SaveCommand => _saveCommand ??
+            (_saveCommand = new DelegateCommand(SaveAsync));
+
+        public DelegateCommand ChangePasswordCommand => _changePasswordCommand ??
+            (_changePasswordCommand = new DelegateCommand(ChangePasswordAsync));
 
         public ImageSource Image
         {
@@ -55,7 +63,7 @@ namespace OnSpa.Prism.ViewModels
             set => SetProperty(ref _image, value);
         }
 
-        public UserRequest User
+        public User User
         {
             get => _user;
             set => SetProperty(ref _user, value);
@@ -73,61 +81,6 @@ namespace OnSpa.Prism.ViewModels
             set => SetProperty(ref _isEnabled, value);
         }
 
-        private async void RegisterAsync()
-        {
-            bool isValid = await ValidateDataAsync();
-            if (!isValid)
-            {
-                return;
-            }
-
-            IsRunning = true;
-            IsEnabled = false;
-
-            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
-                return;
-            }
-
-            byte[] imageArray = null;
-            if (_file != null)
-            {
-                imageArray = _filesHelper.ReadFully(_file.GetStream());
-            }
-
-            User.ImageArray = imageArray;
-
-            string url = App.Current.Resources["UrlAPI"].ToString();
-
-            Response response = await _apiService.RegisterUserAsync(url, "/api", "/Account/Register", User);
-            IsRunning = false;
-            IsEnabled = true;
-
-            if (!response.IsSuccess)
-            {
-                if (response.Message == "Error003")
-                {
-                    await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.Error003, Languages.Accept);
-                }
-                else if (response.Message == "Error004")
-                {
-                    await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.Error004, Languages.Accept);
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
-                }
-
-                return;
-            }
-
-            await App.Current.MainPage.DisplayAlert(Languages.Ok, Languages.RegisterMessge, Languages.Accept);
-            await _navigationService.GoBackAsync();
-
-        }
 
         private async void ChangeImageAsync()
         {
@@ -184,6 +137,73 @@ namespace OnSpa.Prism.ViewModels
             }
         }
 
+        private async void SaveAsync()
+        {
+            bool isValid = await ValidateDataAsync();
+            if (!isValid)
+            {
+                return;
+            }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
+                return;
+            }
+
+            byte[] imageArray = null;
+            if (_file != null)
+            {
+                imageArray = _filesHelper.ReadFully(_file.GetStream());
+            }
+
+            UserRequest request = new UserRequest
+            {
+                Address = User.Address,
+                Document = User.Document,
+                Email = User.Em,
+                FirstName = User.FirstName,
+                ImageArray = imageArray,
+                LastName = User.LastName,
+                Password = "123456", // Doen't matter, it's only to pass the data annotation
+                Phone = User.PhoneNumber
+            };
+
+            TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            string url = App.Current.Resources["UrlAPI"].ToString();
+            Response response = await _apiService.ModifyUserAsync(url, "/api", "/Account", request, token.Token);
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                if (response.Message == "Error001")
+                {
+                    await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.Error001, Languages.Accept);
+                }
+                else if (response.Message == "Error004")
+                {
+                    await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.Error004, Languages.Accept);
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                }
+
+                return;
+            }
+
+            UserResponse updatedUser = (UserResponse)response.Result;
+            token.User = updatedUser;
+            Settings.Token = JsonConvert.SerializeObject(token);
+            OnSaleMasterDetailPageViewModel.GetInstance().LoadUser();
+            await App.Current.MainPage.DisplayAlert(Languages.Ok, Languages.ChangeUserMessage, Languages.Accept);
+        }
 
         private async Task<bool> ValidateDataAsync()
         {
@@ -211,38 +231,35 @@ namespace OnSpa.Prism.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrEmpty(User.Email) || !_regexHelper.IsValidEmail(User.Email))
-            {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(User.Phone))
+            if (string.IsNullOrEmpty(User.PhoneNumber))
             {
                 await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PhoneError, Languages.Accept);
                 return false;
             }
 
-            if (string.IsNullOrEmpty(User.Password) || User.Password?.Length < 6)
+            if (Country == null)
             {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordError, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.CountryError, Languages.Accept);
                 return false;
             }
 
-            if (string.IsNullOrEmpty(User.PasswordConfirm))
+            if (Department == null)
             {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordConfirmError1, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.DepartmentError, Languages.Accept);
                 return false;
             }
 
-            if (User.Password != User.PasswordConfirm)
+            if (City == null)
             {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordConfirmError2, Languages.Accept);
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.CityError, Languages.Accept);
                 return false;
             }
 
             return true;
         }
 
+        private async void ChangePasswordAsync()
+        {
+        }
+
     }
-}
