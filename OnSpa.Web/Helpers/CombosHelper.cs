@@ -104,6 +104,43 @@ namespace OnSpa.Web.Helpers
 
             return list;
         }
+
+         /* public IEnumerable<SelectListItem> GetComboEmployees()
+          {
+              var list = _context.Users.Select(p => new SelectListItem
+              {
+                  Text = p.Service.FullNameWithDocument,
+                  Value = p.Id.ToString()
+              }).OrderBy(p => p.Text).ToList();
+
+              list.Insert(0, new SelectListItem
+              {
+                  Text = "(Select an user...)",
+                  Value = "0"
+              });
+
+              return list;
+          }*/
+
+          public IEnumerable<SelectListItem> GetComboServices()
+          {
+             List<SelectListItem> list = _context.Services.Select(t => new SelectListItem
+            {
+                Text = t.Name,
+                Value = $"{t.Id}"
+            })
+                .OrderBy(t => t.Text)
+                .ToList();
+
+              list.Insert(0, new SelectListItem
+              {
+                  Text = "(Select a service...)",
+                  Value = "0"
+              });
+
+              return list;
+          }
+
     }
 
 }
