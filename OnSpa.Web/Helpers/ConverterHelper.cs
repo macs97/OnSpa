@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OnSpa.Common.Responses;
 using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Models;
@@ -73,6 +74,46 @@ namespace OnSpa.Web.Helpers
                 Id = isNew ? 0 : model.Id,
                 IsActive = model.IsActive,
                 Name = model.Name
+            };
+        }
+
+        public ServiceResponse ToServiceResponse(Service service)
+        {
+            if (service == null)
+            {
+                return null;
+            }
+
+            return new ServiceResponse
+            {
+                Id = service.Id,
+                Name = service.Name,
+                ImageFullPath = service.ImageFullPath
+            };
+        }
+
+        public UserResponse ToUserResponse(User user)
+        {
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserResponse
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Document = user.Document,
+                Address = user.Address,
+                Email = user.Email,
+                ImageFacebook = user.ImageFacebook,
+                Latitude = user.Latitude,
+                ImageId = user.ImageId,
+                LoginType = user.LoginType,
+                Logitude = user.Logitude,
+                PhoneNumber = user.PhoneNumber,
+                UserType = user.UserType
             };
         }
 

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace OnSpa.Web.Data.Entities
 {
@@ -31,6 +32,7 @@ namespace OnSpa.Web.Data.Entities
           ? $"https://onspa.blob.core.windows.net/images/noimage.png"
           : $"https://onspa.blob.core.windows.net/service-types/{ImageId}";
 
+      
         public ICollection<Appointment> Appointments { get; set; }
 
 

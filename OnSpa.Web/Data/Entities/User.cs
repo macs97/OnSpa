@@ -3,6 +3,9 @@ using OnSpa.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
 namespace OnSpa.Web.Data.Entities
 {
     public class User : IdentityUser
@@ -53,7 +56,6 @@ namespace OnSpa.Web.Data.Entities
             }
         }
 
-     
         public ICollection<Appointment> Appointments { get; set; }
 
         [Display(Name = "User Type")]

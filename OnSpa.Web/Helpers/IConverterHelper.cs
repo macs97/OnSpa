@@ -1,4 +1,5 @@
-﻿using OnSpa.Web.Data.Entities;
+﻿using OnSpa.Common.Responses;
+using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,11 @@ namespace OnSpa.Web.Helpers
 
         ServiceTypeViewModel ToServiceTypeViewModel(ServiceType serviceType);
 
-            
-
         Service ToServiceAsync(ServiceViewModel model, bool isNew);
+
+        ServiceResponse ToServiceResponse(Service service);
+
+        UserResponse ToUserResponse(User user);
 
         ServiceViewModel ToServiceViewModel(Service service);
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using OnSpa.Common.Enums;
 //using OnSpa.Common.Models;
 using OnSpa.Common.Request;
@@ -29,16 +30,18 @@ namespace OnSpa.Web.Controllers.API
         private readonly IConfiguration _configuration;
         private readonly IBlobHelper _blobHelper;
         private readonly IMailHelper _mailHelper;
+        private readonly IConverterHelper _converterHelper;
         private readonly DataContext _context;
 
 
-        public AccountController(IUserHelper userHelper, IConfiguration configuration, IBlobHelper blobHelper, IMailHelper mailHelper, DataContext context)
+        public AccountController(IUserHelper userHelper, IConfiguration configuration, IBlobHelper blobHelper, IMailHelper mailHelper, DataContext context, IConverterHelper converterHelper)
         {
             _userHelper = userHelper;
             _configuration = configuration;
             _blobHelper = blobHelper;
             _mailHelper = mailHelper;
             _context = context;
+            _converterHelper = converterHelper;
 
         }
 
@@ -55,7 +58,7 @@ namespace OnSpa.Web.Controllers.API
 
                     if (result.Succeeded)
                     {
-                        object results = GetToken(user);
+                        TokenResponse results = GetToken(user);
                         return Created(string.Empty, results);
                     }
                 }
@@ -90,7 +93,7 @@ namespace OnSpa.Web.Controllers.API
             return BadRequest();
         }
 
-        private object GetToken(User user)
+        private TokenResponse GetToken(User user)
         {
             Claim[] claims = new[]
             {
@@ -107,11 +110,11 @@ namespace OnSpa.Web.Controllers.API
                 expires: DateTime.UtcNow.AddDays(99),
                 signingCredentials: credentials);
 
-            return new
+            return new TokenResponse
             {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo,
-                user
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration = token.ValidTo,
+                User = _converterHelper.ToUserResponse(user)
             };
         }
 
