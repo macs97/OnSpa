@@ -30,7 +30,6 @@ namespace OnSpa.Prism.ViewModels
         private MediaFile _file;
         private DelegateCommand _changeImageCommand;
         private DelegateCommand _saveCommand;
-        private DelegateCommand _changePasswordCommand;
 
         public ModifyUserPageViewModel(
             INavigationService navigationService,
@@ -53,9 +52,6 @@ namespace OnSpa.Prism.ViewModels
 
         public DelegateCommand SaveCommand => _saveCommand ??
             (_saveCommand = new DelegateCommand(SaveAsync));
-
-        public DelegateCommand ChangePasswordCommand => _changePasswordCommand ??
-            (_changePasswordCommand = new DelegateCommand(ChangePasswordAsync));
 
         public ImageSource Image
         {
@@ -238,10 +234,6 @@ namespace OnSpa.Prism.ViewModels
             }
 
             return true;
-        }
-
-        private async void ChangePasswordAsync()
-        {
         }
 
     }

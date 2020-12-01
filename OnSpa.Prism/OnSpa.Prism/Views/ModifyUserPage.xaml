@@ -6,9 +6,9 @@
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:i18n="clr-namespace:OnSpa.Prism.Helpers"
-             BackgroundColor="{StaticResource ColorBackground}"
-             Title="{Binding Title}"
-             x:Class="OnSpa.Prism.Views.ModifyUserPage">
+             x:Class="OnSpa.Prism.Views.ModifyUserPage"
+             Title="{Binding Title}">
+
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                      AbsoluteLayout.LayoutFlags="All"
@@ -58,7 +58,7 @@
                                                    ContainerType="Outlined">
                         <Entry Placeholder="{i18n:Translate PhonePlaceHolder}" 
                                Keyboard="Telephone"
-                               Text="{Binding User.Phone}" />
+                               Text="{Binding User.PhoneNumber}" />
                     </inputLayout:SfTextInputLayout>
                 </StackLayout>
             </ScrollView>
@@ -67,10 +67,6 @@
                 <Button Command="{Binding SaveCommand}"
                         IsEnabled="{Binding IsEnabled}"
                         Text="{i18n:Translate Save}"/>
-                <Button Command="{Binding ChangePasswordCommand}"
-                        IsEnabled="{Binding IsEnabled}"
-                        Style="{StaticResource SecondaryButton}"
-                        Text="{i18n:Translate ChangePassword}"/>
             </StackLayout>
         </StackLayout>
         <busyindicator:SfBusyIndicator AnimationType="None" 
@@ -83,5 +79,4 @@
                 	                   ViewBoxWidth="80"
                 	                   ViewBoxHeight="80" />
     </AbsoluteLayout>
-
 </ContentPage>

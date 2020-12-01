@@ -120,6 +120,9 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="ConnectionError" xml:space="preserve">
     <value>Check the internet connection.</value>
   </data>
