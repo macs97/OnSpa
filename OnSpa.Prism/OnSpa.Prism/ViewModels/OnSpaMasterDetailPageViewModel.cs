@@ -66,6 +66,13 @@ namespace OnSpa.Prism.ViewModels
             new Menu
             {
                 Icon = "ic_login",
+                PageName = $"{nameof(ModifyUserPage)}",
+                Title = Languages.ModifyUser,
+                IsLoginRequired = true
+            },
+            new Menu
+            {
+                Icon = "ic_login",
                 PageName = $"{nameof(ReservePage)}",
                 Title = Languages.Reserve,
                 IsLoginRequired = true
