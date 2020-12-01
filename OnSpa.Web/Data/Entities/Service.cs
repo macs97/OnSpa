@@ -34,7 +34,6 @@ namespace OnSpa.Web.Data.Entities
 
         public ICollection<Appointment> Appointments { get; set; }
 
-        public ServiceType ServiceType { get; set; }
 
     }
 }

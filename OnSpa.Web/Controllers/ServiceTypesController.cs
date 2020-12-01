@@ -13,24 +13,29 @@ namespace OnSpa.Web.Controllers
     {
         private readonly DataContext _context;
         private readonly IBlobHelper _blobHelper;
+        private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
 
-        public ServiceTypesController(DataContext context, IBlobHelper blobHelper, IConverterHelper converterHelper)
+        public ServiceTypesController(DataContext context, IBlobHelper blobHelper, ICombosHelper combosHelper, IConverterHelper converterHelper)
         {
             _context = context;
             _blobHelper = blobHelper;
+            _combosHelper = combosHelper;
             _converterHelper = converterHelper;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ServiceTypes.ToListAsync());
+            return View(await _context.ServiceTypes.Include(s => s.Service).ToListAsync());
         }
 
 
         public IActionResult Create()
         {
-            ServiceTypeViewModel model = new ServiceTypeViewModel();
+            ServiceTypeViewModel model = new ServiceTypeViewModel
+            {
+                Services = _combosHelper.GetComboServices()
+            };
             return View(model);
         }
 
@@ -49,6 +54,8 @@ namespace OnSpa.Web.Controllers
 
                 try
                 {
+                    Service service = await _context.Services.FirstOrDefaultAsync(s => s.Id == model.ServiceId);
+                    model.Service = service;
                     ServiceType serviceType = _converterHelper.ToServiceType(model, imageId, true);
                     _context.Add(serviceType);
                     await _context.SaveChangesAsync();
@@ -70,7 +77,7 @@ namespace OnSpa.Web.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-
+            model.Services = _combosHelper.GetComboServiceTypes();
             return View(model);
         }
 
@@ -128,7 +135,7 @@ namespace OnSpa.Web.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-
+            model.Services = _combosHelper.GetComboServiceTypes();
             return View(model);
         }
 

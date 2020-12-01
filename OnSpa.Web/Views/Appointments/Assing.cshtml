@@ -1,0 +1,79 @@
+﻿@model OnSpa.Web.Models.AppointmentViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Assign</h2>
+
+<h4>Appointment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Assing" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="ServiceId" class="control-label"></label>
+                <select asp-for="ServiceId" asp-items="Model.Services" class="form-control"></select>
+                <span asp-validation-for="ServiceId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ServiceTypeId" class="control-label"></label>
+                <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-control"></select>
+                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" asp-items="Model.Employees" class="form-control"></select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EmailCustomer" class="control-label"></label>
+                <input asp-for="EmailCustomer" class="form-control" />
+                <span asp-validation-for="EmailCustomer" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Assign" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ServiceId").change(function () {
+                $("#ServiceTypeId").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetServiceTypeAsync")',
+                    dataType: 'json',
+                    data: { serviceId: $("#ServiceId").val() },
+                    success: function (serviceTypes) {
+                        debugger;
+                        $("#ServiceTypeId").append('<option value="0">(Select a service type...)</option>');
+                        $.each(serviceTypes, function (i, serviceType) {
+                            $("#ServiceTypeId").append('<option value="'
+                                + serviceType.id + '">'
+                                + serviceType.name + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        console.log(ex)
+                        alert('Failed to retrieve service type.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+}

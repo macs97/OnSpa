@@ -20,7 +20,7 @@ namespace OnSpa.Web.Data.Entities
 
         [Display(Name = "Image")]
         public string ImageFullPath => ImageId == Guid.Empty
-          ? $"https://localhost:44307/images/noimage.png"
+          ? $"https://onspa.blob.core.windows.net/images/noimage.png"
           : $"https://onspa.blob.core.windows.net/service-types/{ImageId}";
 
 
@@ -28,6 +28,8 @@ namespace OnSpa.Web.Data.Entities
         public decimal Price { get; set; }
 
         public ICollection<ServiceTypeCampus> ServiceTypeCampuses { get; set; }
+
+        public Service Service { get; set; }
 
     }
 }

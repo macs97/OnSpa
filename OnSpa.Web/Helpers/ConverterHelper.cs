@@ -1,4 +1,5 @@
-﻿using OnSpa.Web.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Models;
 using System;
@@ -42,7 +43,9 @@ namespace OnSpa.Web.Helpers
             {
                 Id = isNew ? 0 : model.Id,
                 ImageId = imageId,
-                Name = model.Name
+                Name = model.Name,
+                Price = ToPrice(model.PriceString),
+                Service = model.Service
             };
         }
 
@@ -52,20 +55,22 @@ namespace OnSpa.Web.Helpers
             {
                 Id = serviceType.Id,
                 ImageId = serviceType.ImageId,
-                Name = serviceType.Name
+                Name = serviceType.Name,
+                Services = _combosHelper.GetComboServices(),
+                Service = serviceType.Service,
+                ServiceId = serviceType.Id,
+                PriceString = $"{serviceType.Price}"
             };
         }
 
-        public async Task<Service> ToServiceAsync(ServiceViewModel model, bool isNew)
+        public Service ToServiceAsync(ServiceViewModel model, bool isNew)
         {
             return new Service
             {
-                ServiceType = await _context.ServiceTypes.FindAsync(model.ServiceTypeId),
                 Description = model.Description,
                 Id = isNew ? 0 : model.Id,
                 IsActive = model.IsActive,
                 Name = model.Name,
-                Price = ToPrice(model.PriceString),
                 ServiceImages = model.ServiceImages
             };
         }
@@ -91,15 +96,12 @@ namespace OnSpa.Web.Helpers
         {
             return new ServiceViewModel
             {
-                ServiceTypes = _combosHelper.GetComboServiceTypes(),
-                ServiceType = service.ServiceType,
-                ServiceTypeId = service.ServiceType.Id,
+
                 Description = service.Description,
                 Id = service.Id,
                 IsActive = service.IsActive,
                 Name = service.Name,
                 Price = service.Price,
-                PriceString = $"{service.Price}",
                 ServiceImages = service.ServiceImages
             };
         }
