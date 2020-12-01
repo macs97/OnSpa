@@ -29,5 +29,7 @@ namespace OnSpa.Web.Data.Entities
 
         public ICollection<ServiceTypeCampus> ServiceTypeCampuses { get; set; }
 
+        public Service Service { get; set; }
+
     }
 }

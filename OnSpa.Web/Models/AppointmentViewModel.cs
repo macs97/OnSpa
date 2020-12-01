@@ -8,12 +8,7 @@ namespace OnSpa.Web.Models
 {
     public class AppointmentViewModel : Appointment
     {
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [Display(Name = "Employee")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select an Employee.")]
      
-
-
         public IEnumerable<SelectListItem> Services { get; set; }
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]
@@ -33,12 +28,7 @@ namespace OnSpa.Web.Models
         public IEnumerable<SelectListItem> Employees { get; set; }
 
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [Display(Name = "Employee")]
-        [Range(1, int.MaxValue, ErrorMessage = "You must select a Service type.")]
-        public int EmployeeId { get; set; }
+        public string EmailCustomer { get; set; }
 
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
     }
 }

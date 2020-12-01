@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OnSpa.Common.Enums;
 using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
 using System.Collections.Generic;
@@ -105,24 +106,27 @@ namespace OnSpa.Web.Helpers
             return list;
         }
 
-          public IEnumerable<SelectListItem> GetComboEmployees()
-          {
-              var list = _context.Users.Select(p => new SelectListItem
-              {
-                  Text = p.Service.FullNameWithDocument,
-                  Value = p.Id.ToString()
-              }).OrderBy(p => p.Text).ToList();
+        public IEnumerable<SelectListItem> GetComboEmployees()
+        {
 
-              list.Insert(0, new SelectListItem
-              {
-                  Text = "(Select an user...)",
-                  Value = "0"
-              });
+            IQueryable<User> user = _context.Users.Where(u => u.UserType == UserType.Employee);
+            var list = user.Select(u => new SelectListItem
+            {
+                Text = u.FullName,
+                Value = u.Id.ToString()
+            }).OrderBy(u => u.Text).ToList();
 
-              return list;
-          }
 
-          public IEnumerable<SelectListItem> GetComboServices()
+            list.Insert(0, new SelectListItem
+            {
+                Text = "(Select an user...)",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboServices()
           {
              List<SelectListItem> list = _context.Services.Select(t => new SelectListItem
             {

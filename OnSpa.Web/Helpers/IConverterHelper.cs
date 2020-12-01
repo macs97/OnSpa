@@ -19,7 +19,7 @@ namespace OnSpa.Web.Helpers
 
             
 
-        Task<Service> ToServiceAsync(ServiceViewModel model, bool isNew);
+        Service ToServiceAsync(ServiceViewModel model, bool isNew);
 
         ServiceViewModel ToServiceViewModel(Service service);
 

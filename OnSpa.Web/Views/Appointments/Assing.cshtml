@@ -21,13 +21,22 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="ServiceTypeId" class="control-label"></label>
+                <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-control"></select>
+                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="EmployeeId" class="control-label"></label>
                 <select asp-for="EmployeeId" asp-items="Model.Employees" class="form-control"></select>
                 <span asp-validation-for="EmployeeId" class="text-danger"></span>
             </div>
 
-
-
+            <div class="form-group">
+                <label asp-for="EmailCustomer" class="control-label"></label>
+                <input asp-for="EmailCustomer" class="form-control" />
+                <span asp-validation-for="EmailCustomer" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Assign" class="btn btn-primary" />
@@ -40,18 +49,31 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="/js/deleteDialog.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#MyTable').DataTable();
-
-            // Delete item
-           // sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Services/Delete/', false);
+            $("#ServiceId").change(function () {
+                $("#ServiceTypeId").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetServiceTypeAsync")',
+                    dataType: 'json',
+                    data: { serviceId: $("#ServiceId").val() },
+                    success: function (serviceTypes) {
+                        debugger;
+                        $("#ServiceTypeId").append('<option value="0">(Select a service type...)</option>');
+                        $.each(serviceTypes, function (i, serviceType) {
+                            $("#ServiceTypeId").append('<option value="'
+                                + serviceType.id + '">'
+                                + serviceType.name + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        console.log(ex)
+                        alert('Failed to retrieve service type.' + ex);
+                    }
+                });
+                return false;
+            })
         });
     </script>
 }
-
-<h2>Assing</h2>
-

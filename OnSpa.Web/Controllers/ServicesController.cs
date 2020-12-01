@@ -29,7 +29,6 @@ namespace OnSpa.Web.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Services
-                .Include(p => p.ServiceType)
                 .Include(p => p.ServiceImages)
                 .ToListAsync());
         }
@@ -39,7 +38,6 @@ namespace OnSpa.Web.Controllers
         {
             ServiceViewModel model = new ServiceViewModel
             {
-                ServiceTypes = _combosHelper.GetComboServiceTypes(),
                 IsActive = true
             };
 
@@ -54,7 +52,7 @@ namespace OnSpa.Web.Controllers
             {
                 try
                 {
-                    Service service = await _converterHelper.ToServiceAsync(model, true);
+                    Service service = _converterHelper.ToServiceAsync(model, true);
 
                     if (model.ImageFile != null)
                     {
@@ -85,8 +83,6 @@ namespace OnSpa.Web.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-
-            model.ServiceTypes = _combosHelper.GetComboServiceTypes();
             return View(model);
         }
 
@@ -98,7 +94,6 @@ namespace OnSpa.Web.Controllers
             }
 
             Service service = await _context.Services
-                .Include(p => p.ServiceType)
                 .Include(p => p.ServiceImages)
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (service == null)
@@ -118,7 +113,7 @@ namespace OnSpa.Web.Controllers
             {
                 try
                 {
-                    Service service = await _converterHelper.ToServiceAsync(model, false);
+                    Service service = _converterHelper.ToServiceAsync(model, false);
 
                     if (model.ImageFile != null)
                     {
@@ -152,8 +147,6 @@ namespace OnSpa.Web.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-
-            model.ServiceTypes = _combosHelper.GetComboServiceTypes();
             return View(model);
         }
 
@@ -194,7 +187,6 @@ namespace OnSpa.Web.Controllers
             }
 
             Service service = await _context.Services
-                .Include(c => c.ServiceType)
                 .Include(c => c.ServiceImages)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)

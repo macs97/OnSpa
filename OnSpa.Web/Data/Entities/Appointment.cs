@@ -21,6 +21,8 @@ namespace OnSpa.Web.Data.Entities
         public DateTime DateLocal => Date.ToLocalTime();
 
         public Service Service { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string EmployeeId { get; set; }
 
         public User User { get; set; }
