@@ -18,8 +18,11 @@ namespace OnSpa.Web.Helpers
 
         IEnumerable<SelectListItem> GetComboServiceTypes();
 
-        
-       
+        IEnumerable<SelectListItem> GetComboEmployees();
+
+
+
+
 
     }
 }

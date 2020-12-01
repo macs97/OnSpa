@@ -105,7 +105,7 @@ namespace OnSpa.Web.Helpers
             return list;
         }
 
-         /* public IEnumerable<SelectListItem> GetComboEmployees()
+          public IEnumerable<SelectListItem> GetComboEmployees()
           {
               var list = _context.Users.Select(p => new SelectListItem
               {
@@ -120,7 +120,7 @@ namespace OnSpa.Web.Helpers
               });
 
               return list;
-          }*/
+          }
 
           public IEnumerable<SelectListItem> GetComboServices()
           {

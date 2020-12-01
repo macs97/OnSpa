@@ -72,6 +72,7 @@ namespace OnSpa.Web.Controllers
                 if (agenda != null)
                 {
                     agenda.IsAvailable = false;
+                    agenda.User = await _context.Users.FindAsync(model.EmployeeId);
                     agenda.Service = await _context.Services.FindAsync(model.ServiceId);
                     _context.Appointments.Update(agenda);
                     await _context.SaveChangesAsync();
@@ -79,8 +80,8 @@ namespace OnSpa.Web.Controllers
                 }
             }
 
-           // model.ServiceTypes = _combosHelper.GetComboServiceTypes(),
-            //model.Services = _combosHelper.GetComboServices()
+            model.ServiceTypes = _combosHelper.GetComboServiceTypes();
+            model.Services = _combosHelper.GetComboServices();
 
             return View(model);
         }

@@ -28,5 +28,17 @@ namespace OnSpa.Web.Models
         [Display(Name = "Servicetypes")]
         [Range(1, int.MaxValue, ErrorMessage = "You must select a Service type.")]
         public int ServiceTypeId { get; set; }
+
+
+        public IEnumerable<SelectListItem> Employees { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Employee")]
+        [Range(1, int.MaxValue, ErrorMessage = "You must select a Service type.")]
+        public int EmployeeId { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
     }
 }
