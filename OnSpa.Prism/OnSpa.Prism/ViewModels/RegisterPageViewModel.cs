@@ -27,18 +27,21 @@ namespace OnSpa.Prism.ViewModels
         private readonly IFilesHelper _filesHelper;
         private MediaFile _file;
         private DelegateCommand _changeImageCommand;
+        private readonly IGeolocatorService _geolocatorService;
+
 
 
         public RegisterPageViewModel(INavigationService navigationService,
         IRegexHelper regexHelper,
         IApiService apiService,
-        IFilesHelper filesHelper)
+        IFilesHelper filesHelper, GeolocatorService geolocatorService)
         : base(navigationService)
         {
             _navigationService = navigationService;
             _regexHelper = regexHelper;
             _apiService = apiService;
             _filesHelper = filesHelper;
+            _geolocatorService = geolocatorService;
             Title = Languages.Register;
             Image = App.Current.Resources["UrlNoImage"].ToString();
             IsEnabled = true;
@@ -96,6 +99,12 @@ namespace OnSpa.Prism.ViewModels
             if (_file != null)
             {
                 imageArray = _filesHelper.ReadFully(_file.GetStream());
+            }
+            await _geolocatorService.GetLocationAsync();
+            if (_geolocatorService.Latitude != 0 && _geolocatorService.Longitude != 0)
+            {
+                User.Latitude = _geolocatorService.Latitude;
+                User.Logitude = _geolocatorService.Longitude;
             }
 
             User.ImageArray = imageArray;

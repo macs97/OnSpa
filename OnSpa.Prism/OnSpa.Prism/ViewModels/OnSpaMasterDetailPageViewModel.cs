@@ -72,6 +72,13 @@ namespace OnSpa.Prism.ViewModels
             },
             new Menu
             {
+            Icon = "ic_location_on",
+            PageName = $"{nameof(MapPage)}",
+            Title = Languages.Customer
+            },
+
+            new Menu
+            {
                 Icon = "ic_login",
                 PageName = $"{nameof(RecordPage)}",
                 Title = Languages.Record,

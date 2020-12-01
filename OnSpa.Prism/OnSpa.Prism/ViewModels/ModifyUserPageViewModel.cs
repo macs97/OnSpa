@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OnSpa.Common.Enums;
 using OnSpa.Common.Helpers;
 using OnSpa.Common.Models;
 using OnSpa.Common.Request;
@@ -27,6 +28,7 @@ namespace OnSpa.Prism.ViewModels
         private UserResponse _user;
         private bool _isRunning;
         private bool _isEnabled;
+        private bool _isOnSpaUser;
         private MediaFile _file;
         private DelegateCommand _changeImageCommand;
         private DelegateCommand _saveCommand;
@@ -46,6 +48,7 @@ namespace OnSpa.Prism.ViewModels
             TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
             User = token.User;
             Image = User.ImageFullPath;
+            IsOnSpaUser = User.LoginType == LoginType.OnSpa;
         }
 
         public DelegateCommand ChangeImageCommand => _changeImageCommand ??
@@ -80,10 +83,21 @@ namespace OnSpa.Prism.ViewModels
             get => _isEnabled;
             set => SetProperty(ref _isEnabled, value);
         }
+        public bool IsOnSpaUser
+        {
+            get => _isOnSpaUser;
+            set => SetProperty(ref _isOnSpaUser, value);
+        }
 
 
         private async void ChangeImageAsync()
         {
+            if (!IsOnSpaUser)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ChangeOnSocialNetwork, Languages.Accept);
+                return;
+            }
+
             await CrossMedia.Current.Initialize();
 
             string source = await Application.Current.MainPage.DisplayActionSheet(
@@ -242,6 +256,12 @@ namespace OnSpa.Prism.ViewModels
 
         private async void ChangePasswordAsync()
         {
+            if (!IsOnSpaUser)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ChangeOnSocialNetwork, Languages.Accept);
+                return;
+            }
+
         }
 
     }

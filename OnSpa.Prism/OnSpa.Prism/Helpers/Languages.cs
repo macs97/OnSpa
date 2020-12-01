@@ -149,6 +149,9 @@ namespace OnSpa.Prism.Helpers
 
         public static string LoginFirstMessage => Resource.LoginFirstMessage;
 
+        public static string Customer => Resource.Customer;
+
+
     }
 
 }

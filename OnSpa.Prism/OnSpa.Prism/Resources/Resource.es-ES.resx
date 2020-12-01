@@ -327,4 +327,7 @@
   <data name="LoginFirstMessage" xml:space="preserve">
     <value>Para completar esta acción debe haber iniciado sesión. Puede iniciar sesión o registrarse como usuario a continuación.</value>
   </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
 </root>
