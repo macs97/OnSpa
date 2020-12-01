@@ -45,7 +45,8 @@ namespace OnSpa.Web.Helpers
                 ImageId = imageId,
                 Name = model.Name,
                 Price = ToPrice(model.PriceString),
-                Service = model.Service
+                Service = model.Service,
+                ServiceImages = model.ServiceImages
             };
         }
 
@@ -59,7 +60,8 @@ namespace OnSpa.Web.Helpers
                 Services = _combosHelper.GetComboServices(),
                 Service = serviceType.Service,
                 ServiceId = serviceType.Id,
-                PriceString = $"{serviceType.Price}"
+                PriceString = $"{serviceType.Price}",
+                ServiceImages = serviceType.ServiceImages
             };
         }
 
@@ -70,8 +72,7 @@ namespace OnSpa.Web.Helpers
                 Description = model.Description,
                 Id = isNew ? 0 : model.Id,
                 IsActive = model.IsActive,
-                Name = model.Name,
-                ServiceImages = model.ServiceImages
+                Name = model.Name
             };
         }
 
@@ -102,7 +103,7 @@ namespace OnSpa.Web.Helpers
                 IsActive = service.IsActive,
                 Name = service.Name,
                 Price = service.Price,
-                ServiceImages = service.ServiceImages
+                ImageId = service.ImageId
             };
         }
     }
