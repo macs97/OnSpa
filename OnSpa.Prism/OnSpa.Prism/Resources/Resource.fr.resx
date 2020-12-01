@@ -324,4 +324,7 @@
   <data name="ChangeOnSocialNetwork" xml:space="preserve">
     <value>Les utilisateurs inscrits par les réseaux sociaux, doivent changer la photo ou mot de passe sur le réseau social.</value>
   </data>
+  <data name="LoginFirstMessage" xml:space="preserve">
+    <value>Vous devez être connecté pour terminer cette action. Vous pouvez vous connecter ou vous enregistrer en tant qu&amp;#39;utilisateur ci-dessous.</value>
+  </data>
 </root>

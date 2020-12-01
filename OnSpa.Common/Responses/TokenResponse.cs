@@ -9,7 +9,7 @@ namespace OnSpa.Common.Responses
     {
         public string Token { get; set; }
 
-        public User User { get; set; }
+        public UserResponse User { get; set; }
 
         public DateTime Expiration { get; set; }
 

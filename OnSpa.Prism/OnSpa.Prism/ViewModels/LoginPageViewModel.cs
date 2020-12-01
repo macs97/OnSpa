@@ -28,6 +28,7 @@ namespace OnSpa.Prism.ViewModels
         private DelegateCommand _forgotPasswordCommand;
         private readonly IFacebookClient _facebookService = CrossFacebookClient.Current;
         private DelegateCommand _loginFacebookCommand;
+        private string _pageReturn;
 
         public LoginPageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
@@ -36,6 +37,16 @@ namespace OnSpa.Prism.ViewModels
             Title = Languages.Login;
             IsEnabled = true;
         }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey("pageReturn"))
+            {
+                _pageReturn = parameters.GetValue<string>("pageReturn");
+            }
+        }
+
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginAsync));
 
         public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(RegisterAsync));
@@ -118,7 +129,15 @@ namespace OnSpa.Prism.ViewModels
             IsRunning = false;
             IsEnabled = true;
 
-            await _navigationService.NavigateAsync($"/{nameof(OnSpaMasterDetailPage)}/NavigationPage/{nameof(MainPage)}");
+            if (string.IsNullOrEmpty(_pageReturn))
+            {
+                await _navigationService.NavigateAsync($"/{nameof(OnSpaMasterDetailPage)}/NavigationPage/{nameof(MainPage)}");
+            }
+            else
+            {
+                await _navigationService.NavigateAsync($"/{nameof(OnSpaMasterDetailPage)}/NavigationPage/{_pageReturn}");
+            }
+
             Password = string.Empty;
 
         }

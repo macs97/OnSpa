@@ -23,7 +23,6 @@ namespace OnSpa.Common.Responses
 
         public Guid ImageId { get; set; }
 
-
         public string ImageFacebook { get; set; }
 
         public LoginType LoginType { get; set; }

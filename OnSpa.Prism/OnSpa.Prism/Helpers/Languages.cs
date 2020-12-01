@@ -147,6 +147,8 @@ namespace OnSpa.Prism.Helpers
 
         public static string ChangeOnSocialNetwork => Resource.ChangeOnSocialNetwork;
 
+        public static string LoginFirstMessage => Resource.LoginFirstMessage;
+
     }
 
 }

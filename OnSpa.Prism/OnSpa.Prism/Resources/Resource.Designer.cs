@@ -63,9 +63,9 @@ namespace OnSpa.Prism.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Users registered by social networks.
         /// </summary>
-        internal static string _ {
+        internal static string _Empty_1_ {
             get {
-                return ResourceManager.GetString("", resourceCulture);
+                return ResourceManager.GetString("_Empty[1]", resourceCulture);
             }
         }
         
@@ -115,7 +115,7 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Users registered by social networks, must change the photo or password on the social network..
         /// </summary>
         internal static string ChangeOnSocialNetwork {
             get {
@@ -444,6 +444,15 @@ namespace OnSpa.Prism.Resources {
         internal static string LoginFacebook {
             get {
                 return ResourceManager.GetString("LoginFacebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must be logged in to complete this action. You can login or register as a user below..
+        /// </summary>
+        internal static string LoginFirstMessage {
+            get {
+                return ResourceManager.GetString("LoginFirstMessage", resourceCulture);
             }
         }
         

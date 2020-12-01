@@ -1,6 +1,7 @@
 ﻿
 using OnSpa.Common.Helpers;
 using OnSpa.Common.Models;
+using OnSpa.Prism.Helpers;
 using OnSpa.Prism.Views;
 using Prism.Commands;
 using Prism.Navigation;
@@ -21,14 +22,28 @@ namespace OnSpa.Prism.ItemViewModels
 
         private async void SelectMenuAsync()
         {
-            if (PageName == nameof(LoginPage) && Settings.IsLogin)
+            if (PageName == "LoginPage" && Settings.IsLogin)
             {
                 Settings.IsLogin = false;
                 Settings.Token = null;
             }
 
-            await _navigationService.NavigateAsync($"/{nameof(OnSpaMasterDetailPage)}/NavigationPage/{PageName}");
+            if (IsLoginRequired && !Settings.IsLogin)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginFirstMessage, Languages.Accept);
+                NavigationParameters parameters = new NavigationParameters
+        {
+            { "pageReturn", PageName }
+        };
+
+                await _navigationService.NavigateAsync($"/{nameof(OnSpaMasterDetailPage)}/NavigationPage/{nameof(LoginPage)}", parameters);
+            }
+            else
+            {
+                await _navigationService.NavigateAsync($"/{nameof(OnSpaMasterDetailPage)}/NavigationPage/{PageName}");
+            }
         }
+
     }
 
 }

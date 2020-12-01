@@ -12,6 +12,7 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -23,7 +24,7 @@ namespace OnSpa.Prism.ViewModels
         private readonly IApiService _apiService;
         private readonly IFilesHelper _filesHelper;
         private ImageSource _image;
-        private User _user;
+        private UserResponse _user;
         private bool _isRunning;
         private bool _isEnabled;
         private MediaFile _file;
@@ -50,8 +51,8 @@ namespace OnSpa.Prism.ViewModels
         public DelegateCommand ChangeImageCommand => _changeImageCommand ??
             (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
 
-        /*public DelegateCommand SaveCommand => _saveCommand ??
-            (_saveCommand = new DelegateCommand(SaveAsync));*/
+        public DelegateCommand SaveCommand => _saveCommand ??
+            (_saveCommand = new DelegateCommand(SaveAsync));
 
         public DelegateCommand ChangePasswordCommand => _changePasswordCommand ??
             (_changePasswordCommand = new DelegateCommand(ChangePasswordAsync));
@@ -62,7 +63,7 @@ namespace OnSpa.Prism.ViewModels
             set => SetProperty(ref _image, value);
         }
 
-        public User User
+        public UserResponse User
         {
             get => _user;
             set => SetProperty(ref _user, value);
@@ -136,7 +137,7 @@ namespace OnSpa.Prism.ViewModels
             }
         }
 
-        /*private async void SaveAsync()
+        private async void SaveAsync()
         {
             bool isValid = await ValidateDataAsync();
             if (!isValid)
@@ -200,7 +201,7 @@ namespace OnSpa.Prism.ViewModels
             UserResponse updatedUser = (UserResponse)response.Result;
             token.User = updatedUser;
             Settings.Token = JsonConvert.SerializeObject(token);
-            OnSaleMasterDetailPageViewModel.GetInstance().LoadUser();
+            OnSpaMasterDetailPageViewModel.GetInstance().LoadUser();
             await App.Current.MainPage.DisplayAlert(Languages.Ok, Languages.ChangeUserMessage, Languages.Accept);
         }
 
@@ -236,26 +237,8 @@ namespace OnSpa.Prism.ViewModels
                 return false;
             }
 
-            if (Country == null)
-            {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.CountryError, Languages.Accept);
-                return false;
-            }
-
-            if (Department == null)
-            {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.DepartmentError, Languages.Accept);
-                return false;
-            }
-
-            if (City == null)
-            {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.CityError, Languages.Accept);
-                return false;
-            }
-
             return true;
-        }*/
+        }
 
         private async void ChangePasswordAsync()
         {
