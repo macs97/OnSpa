@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,15 +23,13 @@ namespace OnSpa.Web.Data.Entities
         [DisplayName("Is Active")]
         public bool IsActive { get; set; }
 
-        public ICollection<ServiceImage> ServiceImages { get; set; }
-
-        [DisplayName("Service Images Number")]
-        public int ServiceImagesNumber => ServiceImages == null ? 0 : ServiceImages.Count;
+        [Display(Name = "Image")]
+        public Guid ImageId { get; set; }
 
         [Display(Name = "Image")]
-        public string ImageFullPath => ServiceImages == null || ServiceImages.Count == 0
-          ? $"https://localhost:44307/images/noimage.png"
-            : ServiceImages.FirstOrDefault().ImageFullPath;
+        public string ImageFullPath => ImageId == Guid.Empty
+          ? $"https://onspa.blob.core.windows.net/images/noimage.png"
+          : $"https://onspa.blob.core.windows.net/service-types/{ImageId}";
 
         public ICollection<Appointment> Appointments { get; set; }
 

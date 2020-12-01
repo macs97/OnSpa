@@ -105,17 +105,20 @@ namespace OnSpa.Web.Controllers
                 return NotFound();
             }
 
-            var agenda = await _context.Appointments
-                
+            Appointment agenda = await _context.Appointments
+
                 .Include(a => a.Service)
+                .Include(a => a.User)
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
             if (agenda == null)
             {
                 return NotFound();
             }
             agenda.IsAvailable = true;
-            agenda.Service= null;
-            
+            agenda.Service = null;
+            agenda.User = null;
+            agenda.EmployeeId = null;
+
 
             _context.Appointments.Update(agenda);
             await _context.SaveChangesAsync();

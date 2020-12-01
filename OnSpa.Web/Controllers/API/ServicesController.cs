@@ -23,7 +23,6 @@ namespace OnSpa.Web.Controllers.API
         public async Task<IActionResult> GetServices()
         {
             List<Service> services = await _context.Services
-                .Include(p => p.ServiceImages)
                 .Where(p => p.IsActive)
                 .ToListAsync();
             return Ok(services);

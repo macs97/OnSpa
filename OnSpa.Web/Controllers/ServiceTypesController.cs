@@ -5,6 +5,8 @@ using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
 using OnSpa.Web.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OnSpa.Web.Controllers
@@ -26,7 +28,7 @@ namespace OnSpa.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ServiceTypes.Include(s => s.Service).ToListAsync());
+            return View(await _context.ServiceTypes.Include(s => s.Service).Include(p => p.ServiceImages).ToListAsync());
         }
 
 
@@ -57,6 +59,10 @@ namespace OnSpa.Web.Controllers
                     Service service = await _context.Services.FirstOrDefaultAsync(s => s.Id == model.ServiceId);
                     model.Service = service;
                     ServiceType serviceType = _converterHelper.ToServiceType(model, imageId, true);
+                    serviceType.ServiceImages = new List<ServiceImage>
+                    {
+                        new ServiceImage { ImageId = imageId }
+                    };
                     _context.Add(serviceType);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -88,7 +94,11 @@ namespace OnSpa.Web.Controllers
                 return NotFound();
             }
 
-            ServiceType serviceType = await _context.ServiceTypes.FindAsync(id);
+            ServiceType serviceType = await _context.ServiceTypes
+                .Include(p => p.ServiceImages)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+
             if (serviceType == null)
             {
                 return NotFound();
@@ -114,6 +124,12 @@ namespace OnSpa.Web.Controllers
                 try
                 {
                     ServiceType serviceType = _converterHelper.ToServiceType(model, imageId, false);
+                    if (serviceType.ServiceImages == null)
+                    {
+                        serviceType.ServiceImages = new List<ServiceImage>();
+                    }
+
+                    serviceType.ServiceImages.Add(new ServiceImage { ImageId = imageId });
                     _context.Update(serviceType);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -148,6 +164,7 @@ namespace OnSpa.Web.Controllers
             }
 
             ServiceType serviceType = await _context.ServiceTypes
+                .Include(p => p.ServiceImages)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (serviceType == null)
             {
@@ -165,6 +182,99 @@ namespace OnSpa.Web.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ServiceType service = await _context.ServiceTypes
+                .Include(c => c.ServiceImages)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            return View(service);
+        }
+
+        public async Task<IActionResult> AddImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Service service = await _context.Services.FindAsync(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            AddServiceImageViewModel model = new AddServiceImageViewModel { ServiceId = service.Id };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddImage(AddServiceImageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ServiceType service = await _context.ServiceTypes
+                    .Include(p => p.ServiceImages)
+                    .FirstOrDefaultAsync(p => p.Id == model.ServiceId);
+                if (service == null)
+                {
+                    return NotFound();
+                }
+
+                try
+                {
+                    Guid imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "service-types");
+                    if (service.ServiceImages == null)
+                    {
+                        service.ServiceImages = new List<ServiceImage>();
+                    }
+
+                    service.ServiceImages.Add(new ServiceImage { ImageId = imageId });
+                    _context.Update(service);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction($"{nameof(Details)}/{service.Id}");
+
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
+            }
+
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> DeleteImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            ServiceImage serviceImage = await _context.ServiceImages
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (serviceImage == null)
+            {
+                return NotFound();
+            }
+
+            ServiceType service = await _context.ServiceTypes.FirstOrDefaultAsync(p => p.ServiceImages.FirstOrDefault(pi => pi.Id == serviceImage.Id) != null);
+            _context.ServiceImages.Remove(serviceImage);
+            await _context.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{service.Id}");
         }
     }
 }
