@@ -329,6 +329,7 @@
   </data>
   <data name="Customer" xml:space="preserve">
     <value>Cliente</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
   </data>
