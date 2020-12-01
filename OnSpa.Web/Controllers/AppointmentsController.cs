@@ -5,6 +5,7 @@ using OnSpa.Web.Data.Entities;
 using OnSpa.Web.Helpers;
 using OnSpa.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,6 +39,16 @@ namespace OnSpa.Web.Controllers
         {
             await _appointmentHelper.AddDaysAsync(7);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult AppointmentAssigned()
+        {
+            List<Appointment> appointment = _context.Appointments
+                .Include(a => a.User)
+                .Include(a => a.Service)
+                .Where(a => a.IsAvailable == false)
+                .ToList();
+            return View(appointment);
         }
 
 
