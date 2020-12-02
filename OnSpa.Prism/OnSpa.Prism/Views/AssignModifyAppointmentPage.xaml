@@ -22,6 +22,14 @@
         	SelectedItem="{Binding Service}"
         	Title="{i18n:Translate ServicePlaceHolder}"/>
 
+        <Label
+        	Text="{i18n:Translate Employee}"/>
+        <Picker
+        	ItemDisplayBinding="{Binding FullName}"
+        	ItemsSource="{Binding Users}"
+        	SelectedItem="{Binding User}"
+        	Title="{i18n:Translate UserPlaceHolder}"/>
+
         <ActivityIndicator
         	IsRunning="{Binding IsRunning}"
         	VerticalOptions="CenterAndExpand"/>

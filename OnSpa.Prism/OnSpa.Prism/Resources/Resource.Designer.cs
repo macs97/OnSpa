@@ -340,6 +340,24 @@ namespace OnSpa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee.
+        /// </summary>
+        internal static string Employee {
+            get {
+                return ResourceManager.GetString("Employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee error.
+        /// </summary>
+        internal static string EmployeeError {
+            get {
+                return ResourceManager.GetString("EmployeeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string Error {
@@ -786,6 +804,15 @@ namespace OnSpa.Prism.Resources {
         internal static string ServicePlaceHolder {
             get {
                 return ResourceManager.GetString("ServicePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee.
+        /// </summary>
+        internal static string UserPlaceHolder {
+            get {
+                return ResourceManager.GetString("UserPlaceHolder", resourceCulture);
             }
         }
         

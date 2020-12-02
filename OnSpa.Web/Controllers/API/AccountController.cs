@@ -330,6 +330,16 @@ namespace OnSpa.Web.Controllers.API
             return Ok(users);
         }
 
+        [HttpGet]
+        [Route("Employees")]
+        public async Task<IActionResult> GetEmployees()
+        {
+            List<User> users = await _context.Users
+                .Where(u => u.UserType == UserType.Employee)
+                .ToListAsync();
+            return Ok(users);
+        }
+
     }
 
 }

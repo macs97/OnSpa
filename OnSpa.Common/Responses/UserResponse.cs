@@ -55,6 +55,5 @@ namespace OnSpa.Common.Responses
 
         public double Logitude { get; set; }
 
-        public ServiceResponse Service { get; set; }
     }
 }

@@ -363,4 +363,13 @@
   <data name="Service" xml:space="preserve">
     <value>Service</value>
   </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="UserPlaceHolder" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="EmployeeError" xml:space="preserve">
+    <value>Employee error</value>
+  </data>
 </root>

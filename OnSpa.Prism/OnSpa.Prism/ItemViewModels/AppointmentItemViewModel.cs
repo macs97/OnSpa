@@ -29,7 +29,7 @@ namespace OnSpa.Prism.ItemViewModels
 
             var parameters = new NavigationParameters
             {
-                { "Appointments", this }
+                { "Appointment", this }
             };
 
             await _navigationService.NavigateAsync("AssignModifyAppointmentPage", parameters);

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OnSpa.Common.Helpers;
+using OnSpa.Common.Models;
 using OnSpa.Common.Request;
 using OnSpa.Common.Responses;
 using OnSpa.Common.Services;
@@ -18,14 +19,17 @@ namespace OnSpa.Prism.ViewModels
     {
 
         private AppointmentResponse _appointment;
-        private ServiceResponse _service;
-        private ObservableCollection<ServiceResponse> _services;
+        private Service _service;
+        private ObservableCollection<Service> _services;
         private bool _isRunning;
         private bool _isEnabled;
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private DelegateCommand _assignCommand;
         private DelegateCommand _cancelCommand;
+        private User _user;
+        private ObservableCollection<User> _users;
+        private int _appointmentId;
 
 
         public AssignModifyAppointmentViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
@@ -47,16 +51,34 @@ namespace OnSpa.Prism.ViewModels
             set => SetProperty(ref _appointment, value);
         }
 
-        public ServiceResponse Service
+        public int AppointmentId
+        {
+            get => _appointmentId;
+            set => SetProperty(ref _appointmentId, value);
+        }
+
+        public Service Service
         {
             get => _service;
             set => SetProperty(ref _service, value);
         }
 
-        public ObservableCollection<ServiceResponse> Services
+        public ObservableCollection<Service> Services
         {
             get => _services;
             set => SetProperty(ref _services, value);
+        }
+
+        public User User
+        {
+            get => _user;
+            set => SetProperty(ref _user, value);
+        }
+
+        public ObservableCollection<User> Users
+        {
+            get => _users;
+            set => SetProperty(ref _users, value);
         }
 
         public bool IsRunning
@@ -79,14 +101,34 @@ namespace OnSpa.Prism.ViewModels
             {
                 Appointment = parameters.GetValue<AppointmentResponse>("Appointment");
                 LoadServices();
+                LoadEmployees();
             }
         }
 
-        private void LoadServices()
+        private async void LoadServices()
         {
-            var user = JsonConvert.DeserializeObject<UserResponse>(Settings.User);
-            //Services = new ObservableCollection<ServiceResponse>(user.Ser);
-            //Pet = Pets.FirstOrDefault(p => p.Id == _agenda.Pet.Id);
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            Response response = await _apiService.GetListAsync<Service>(url, "api", "/Services");
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ServiceError, Languages.Accept);
+                return;
+            }
+            List<Service> services = (List<Service>)response.Result;
+            Services = new ObservableCollection<Service>(services);
+        }
+
+        private async void LoadEmployees()
+        {
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            Response response = await _apiService.GetListAsync<User>(url, "api", "/Account/Employees");
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmployeeError, Languages.Accept);
+                return;
+            }
+            List<User> users = (List<User>)response.Result;
+            Users = new ObservableCollection<User>(users);
         }
 
         private async void Assign()
@@ -102,16 +144,17 @@ namespace OnSpa.Prism.ViewModels
 
             var url = App.Current.Resources["UrlAPI"].ToString();
             var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
-            var user = JsonConvert.DeserializeObject<UserResponse>(Settings.User);
+            var user = token.User;
 
             var request = new AssignRequest
             {
                 AppointmentId = Appointment.Id,
                 UserId = user.Id,
-                ServiceId = Service.Id
+                ServiceId = Service.Id,
+                EmployeeId = User.Id
             };
 
-            var response = await _apiService.PostAsync(url, "/api", "/Appointment/AssignAppointment", request, "bearer", token.Token);
+            var response = await _apiService.PostAsync(url, "/api", "/Appointments/AssignAppointment", request, "bearer", token.Token);
 
             IsRunning = false;
             IsEnabled = true;

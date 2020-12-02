@@ -168,6 +168,8 @@ namespace OnSpa.Prism.Helpers
 
         public static string Service => Resource.Service;
 
+        public static string EmployeeError => Resource.EmployeeError;
+
     }
 
 }
