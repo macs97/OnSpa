@@ -17,7 +17,6 @@ namespace OnSpa.Web.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AppointmentsController : ControllerBase
     {
         private readonly DataContext _context;
@@ -33,6 +32,7 @@ namespace OnSpa.Web.Controllers.API
 
         [HttpPost]
         [Route("GetAgendaForCustomer")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetAgendaForCustomer(EmailRequest emailRequest)
         {
             if (!ModelState.IsValid)
@@ -78,6 +78,7 @@ namespace OnSpa.Web.Controllers.API
 
         [HttpPost]
         [Route("AssignAppointment")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> AssignAppointment(AssignRequest request)
         {
             if (!ModelState.IsValid)
@@ -123,6 +124,7 @@ namespace OnSpa.Web.Controllers.API
 
         [HttpPost]
         [Route("UnAssignAppointment")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> UnAssignAppointment(UnAssignRequest request)
         {
             if (!ModelState.IsValid)
@@ -151,6 +153,17 @@ namespace OnSpa.Web.Controllers.API
             _context.Appointments.Update(appointment);
             await _context.SaveChangesAsync();
             return Ok(appointment);
+        }
+
+        [HttpGet]
+        [Route("HistoryByCustomer/{customerId}")]
+        public async Task<IActionResult> HistoryByCustomer(string customerId)
+        {
+            List<Appointment> appointments = await _context.Appointments
+                .Include(a => a.User)
+                .Where(a => a.User.Email.Equals(customerId)).ToListAsync();
+            appointments.ForEach(a => a.User.Appointments = null);
+            return Ok(appointments);
         }
 
     }
