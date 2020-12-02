@@ -26,7 +26,7 @@ namespace OnSpa.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private DelegateCommand _assignCommand;
-        private DelegateCommand _cancelCommand;
+        
         private User _user;
         private ObservableCollection<User> _users;
         private int _appointmentId;
@@ -42,7 +42,6 @@ namespace OnSpa.Prism.ViewModels
 
         public DelegateCommand AssignCommand => _assignCommand ?? (_assignCommand = new DelegateCommand(Assign));
 
-        public DelegateCommand CancelCommand => _cancelCommand ?? (_cancelCommand = new DelegateCommand(Cancel));
 
 
         public AppointmentResponse Appointment
@@ -99,7 +98,7 @@ namespace OnSpa.Prism.ViewModels
 
             if (parameters.ContainsKey("Appointment"))
             {
-                Appointment = parameters.GetValue<AppointmentResponse>("Appointment");
+                Appointment = parameters.GetValue<AppointmentResponse>("Appointment");                
                 LoadServices();
                 LoadEmployees();
             }
@@ -182,43 +181,6 @@ namespace OnSpa.Prism.ViewModels
             }
 
             return true;
-        }
-
-        private async void Cancel()
-        {
-            var answer = await App.Current.MainPage.DisplayAlert(
-                Languages.Confirm,
-                Languages.CancelAppointmentMessage,
-                Languages.Yes,
-                Languages.No);
-
-            if (!answer)
-            {
-                return;
-            }
-            IsRunning = true;
-            IsEnabled = false;
-
-            var request = new UnAssignRequest { AppointmentId = Appointment.Id };
-            var url = App.Current.Resources["UrlAPI"].ToString();
-            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
-            var response = await _apiService.PostAsync(url, "/api", "/Appointment/UnAssignAppointment", request, "bearer", token.Token);
-
-            IsRunning = false;
-            IsEnabled = true;
-
-            if (!response.IsSuccess)
-            {
-                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
-                return;
-            }
-
-            var parameters = new NavigationParameters
-    {
-        { "Refresh", true }
-    };
-
-            await _navigationService.GoBackAsync(parameters);
         }
 
     }

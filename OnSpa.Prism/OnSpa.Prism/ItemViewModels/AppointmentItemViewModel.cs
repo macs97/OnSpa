@@ -20,17 +20,21 @@ namespace OnSpa.Prism.ItemViewModels
 
         private async void SelectAppointment()
         {
-            var user = JsonConvert.DeserializeObject<UserResponse>(Settings.User);
-
-            if (!IsActive && User.Id != user.Id)
-            {
-                return;
-            }
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            var user = token.User;
 
             var parameters = new NavigationParameters
             {
                 { "Appointment", this }
             };
+
+            if (!IsActive)
+            {
+
+                await _navigationService.NavigateAsync("UnAssignAppointmentPage", parameters);
+                return;
+            }
+
 
             await _navigationService.NavigateAsync("AssignModifyAppointmentPage", parameters);
         }
