@@ -46,6 +46,7 @@ namespace OnSpa.Prism
             containerRegistry.RegisterForNavigation<RecordPage, RecordPageViewModel>();
             containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
             containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
+            containerRegistry.RegisterForNavigation<AssignModifyAppointmentPage, AssignModifyAppointmentViewModel>();
         }
     }
 }

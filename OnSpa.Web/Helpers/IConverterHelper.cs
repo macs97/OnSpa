@@ -26,7 +26,5 @@ namespace OnSpa.Web.Helpers
 
         ServiceViewModel ToServiceViewModel(Service service);
 
-
-
     }
 }

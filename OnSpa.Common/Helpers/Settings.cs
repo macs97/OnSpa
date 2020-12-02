@@ -8,7 +8,7 @@ namespace OnSpa.Common.Helpers
     public static class Settings
     {
         private const string _token = "token";
-        private const string _tickets = "tickets";
+        private const string _user = "user";
         private const string _isLogin = "isLogin";
         private static readonly string _stringDefault = string.Empty;
         private static readonly bool _boolDefault = false;
@@ -21,10 +21,10 @@ namespace OnSpa.Common.Helpers
             set => AppSettings.AddOrUpdateValue(_token, value);
         }
 
-        public static string Tickets
+        public static string User
         {
-            get => AppSettings.GetValueOrDefault(_tickets, _stringDefault);
-            set => AppSettings.AddOrUpdateValue(_tickets, value);
+            get => AppSettings.GetValueOrDefault(_user, _stringDefault);
+            set => AppSettings.AddOrUpdateValue(_user, value);
         }
 
         public static bool IsLogin

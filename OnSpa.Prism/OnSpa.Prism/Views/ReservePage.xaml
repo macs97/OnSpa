@@ -3,6 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="OnSpa.Prism.Views.ReservePage">
-  
+             x:Class="OnSpa.Prism.Views.ReservePage"
+             Title="{Binding Title}">
+
+    <StackLayout
+    	Padding="10">
+        <ListView
+        	HasUnevenRows="True"
+        	SeparatorVisibility="None"
+        	IsPullToRefreshEnabled="True"
+        	RefreshCommand="{Binding RefreshAppointmentCommand}"
+        	IsRefreshing="{Binding IsRefreshing}"
+        	ItemsSource="{Binding Appointment}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame
+                        	CornerRadius="20"
+                        	HasShadow="True"
+                        	Margin="0,0,0,5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectAppointmentCommand}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                	Grid.Column="0"
+                                	Text="{Binding DateLocal, StringFormat='{0:yyyy/MM/dd HH:mm}'}"
+                                	TextColor="Black">
+                                </Label>
+                                <Label
+                                	Grid.Column="1"
+                                	FontAttributes="Bold"
+                                	Text="{Binding User.FullName}"
+                                	TextColor="Black">
+                                </Label>
+                                <Label
+                                	Grid.Column="2"
+                                	Text="{Binding Service.Name}"
+                                	TextColor="Black">
+                                </Label>
+                                <Image
+                                	Grid.Column="3"
+                                	Source="ic_chevron_right">
+                                </Image>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>
