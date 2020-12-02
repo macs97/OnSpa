@@ -707,5 +707,23 @@ namespace OnSpa.Prism.Resources {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Service Type.
+        /// </summary>
+        internal static string SearchServiceType {
+            get {
+                return ResourceManager.GetString("SearchServiceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service Type.
+        /// </summary>
+        internal static string ServiceType {
+            get {
+                return ResourceManager.GetString("ServiceType", resourceCulture);
+            }
+        }
     }
 }

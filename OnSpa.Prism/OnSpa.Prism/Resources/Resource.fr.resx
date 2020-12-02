@@ -333,4 +333,10 @@
   <data name="Save" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
+  <data name="ServiceType" xml:space="preserve">
+    <value>Type de service</value>
+  </data>
+  <data name="SearchServiceType" xml:space="preserve">
+    <value>Chercher type de service</value>
+  </data>
 </root>

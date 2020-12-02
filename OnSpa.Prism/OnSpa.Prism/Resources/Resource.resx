@@ -333,4 +333,10 @@
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
   </data>
+  <data name="ServiceType" xml:space="preserve">
+    <value>Service Type</value>
+  </data>
+  <data name="SearchServiceType" xml:space="preserve">
+    <value>Search Service Type</value>
+  </data>
 </root>

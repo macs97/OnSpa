@@ -65,14 +65,21 @@ namespace OnSpa.Prism.ViewModels
             },
             new Menu
             {
-                Icon = "ic_login",
+                Icon = "ic_services",
+                PageName = $"{nameof(ServiceTypePage)}",
+                Title = Languages.ServiceType
+            },
+
+            new Menu
+            {
+                Icon = "ic_person",
                 PageName = $"{nameof(ModifyUserPage)}",
                 Title = Languages.ModifyUser,
                 IsLoginRequired = true
             },
             new Menu
             {
-                Icon = "ic_login",
+                Icon = "ic_agenda",
                 PageName = $"{nameof(ReservePage)}",
                 Title = Languages.Reserve,
                 IsLoginRequired = true
@@ -86,7 +93,7 @@ namespace OnSpa.Prism.ViewModels
 
             new Menu
             {
-                Icon = "ic_login",
+                Icon = "ic_history",
                 PageName = $"{nameof(RecordPage)}",
                 Title = Languages.Record,
                 IsLoginRequired = true

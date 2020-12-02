@@ -1,6 +1,7 @@
 ﻿using OnSpa.Common.Models;
 using OnSpa.Common.Responses;
 using OnSpa.Common.Services;
+using OnSpa.Prism.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -18,14 +19,40 @@ namespace OnSpa.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private ObservableCollection<ServiceType> _ServiceType;
+        private bool _isRunning;
+        private string _search;
+        private List<ServiceType> _myServiceType;
+        private DelegateCommand _searchCommand;
+
 
         public ServiceTypePageViewModel(INavigationService navigationService, IApiService apiService) : base(navigationService)
         {
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "ServiceTypes";
+            Title = Languages.ServiceType;
+
             LoadProductsAsync();
         }
+
+        public DelegateCommand SearchCommand => _searchCommand ?? (_searchCommand = new DelegateCommand(ShowServicesType));
+
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                SetProperty(ref _search, value);
+                ShowServicesType();
+            }
+        }
+
+
+        public bool IsRunning
+        {
+            get => _isRunning;
+            set => SetProperty(ref _isRunning, value);
+        }
+
         public ObservableCollection<ServiceType> ServiceTypes
         {
             get => _ServiceType;
@@ -36,27 +63,38 @@ namespace OnSpa.Prism.ViewModels
         {
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.ConnectionError, Languages.Accept);
                 return;
             }
-
+            IsRunning = true;
             string url = App.Current.Resources["UrlAPI"].ToString();
             Response response = await _apiService.GetListAsync<ServiceType>(
                  url,
                 "/api",
-                "/ServiceTypes/GetServiceTypes/ "+ serviceId);
-
+                "/ServiceTypes/GetServiceTypes");
+            IsRunning = false;
             if (!response.IsSuccess)
             {
-                await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    response.Message,
-                    "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
                 return;
             }
 
-            List<ServiceType> myServiceType = (List<ServiceType>)response.Result;
-            ServiceTypes = new ObservableCollection<ServiceType>(myServiceType);
+            _myServiceType = (List<ServiceType>)response.Result;
+            ShowServicesType();
+
+        }
+
+        private void ShowServicesType()
+        {
+            if (string.IsNullOrEmpty(Search))
+            {
+                ServiceTypes = new ObservableCollection<ServiceType>(_myServiceType);
+            }
+            else
+            {
+                ServiceTypes = new ObservableCollection<ServiceType>(_myServiceType
+                .Where(p => p.Name.ToLower().Contains(Search.ToLower())));
+            }
         }
 
     }

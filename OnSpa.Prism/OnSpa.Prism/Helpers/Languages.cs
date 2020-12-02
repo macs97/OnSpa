@@ -150,6 +150,8 @@ namespace OnSpa.Prism.Helpers
         public static string LoginFirstMessage => Resource.LoginFirstMessage;
 
         public static string Customer => Resource.Customer;
+        public static string ServiceType => Resource.ServiceType;
+        public static string SearchServiceType => Resource.SearchServiceType;
 
 
     }
