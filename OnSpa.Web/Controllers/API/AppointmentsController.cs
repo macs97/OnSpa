@@ -153,5 +153,16 @@ namespace OnSpa.Web.Controllers.API
             return Ok(appointment);
         }
 
+        [HttpPost]
+        [Route("HistoryByCustomer")]
+        public async Task<IActionResult> HistoryByCustomer(HistoryRequest historyRequest)
+        {
+            List<Appointment> appointments = await _context.Appointments
+                .Include(a => a.User)
+                .Where(a => a.User.Email.Equals(historyRequest.CustomerId)).ToListAsync();
+            appointments.ForEach(a => a.User.Appointments = null);
+            return Ok(appointments);
+        }
+
     }
 }
