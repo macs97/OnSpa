@@ -20,12 +20,12 @@ namespace OnSpa.Web.Controllers.API
         }
 
         [HttpGet]
-        [Route("GetServiceTypes/{serviceId}")]
-        public IActionResult GetServiceTypes(int? serviceId)
+        [Route("GetServiceTypes")]
+        public IActionResult GetServiceTypes()
         {
             List<ServiceType> services = _context.ServiceTypes
                 .Include(s => s.ServiceImages)
-                .Where(s => s.Service.Id == serviceId).ToList();
+                .ToList();
             return Ok(services);
         }
     }

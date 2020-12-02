@@ -24,7 +24,8 @@ namespace OnSpa.Prism
             SyncfusionLicenseProvider.RegisterLicense("MzM2MjIyQDMxMzgyZTMzMmUzMG1aSkc4dEdSNFRPWmcxRnh2d21GWUFVNHV4ZEJUWThZcVFIM3hCMTd6eUU9");
             InitializeComponent();
 
-            await NavigationService.NavigateAsync($"{nameof(OnSpaMasterDetailPage)}/NavigationPage/{nameof(MainPage)}");
+            await NavigationService.NavigateAsync($"{nameof(OnSpaMasterDetailPage)}/NavigationPage/{nameof(ServiceTypePage)}");
+            //await NavigationService.NavigateAsync($"NavigationPage/{nameof(ProductsPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -45,7 +46,9 @@ namespace OnSpa.Prism
             containerRegistry.RegisterForNavigation<ReservePage, ReservePageViewModel>();
             containerRegistry.RegisterForNavigation<RecordPage, RecordPageViewModel>();
             containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
+           
             containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
+            containerRegistry.RegisterForNavigation<ServiceTypePage, ServiceTypePageViewModel>();
         }
     }
 }
