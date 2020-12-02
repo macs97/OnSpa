@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnSpa.Web.Data;
 using OnSpa.Web.Data.Entities;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace OnSpa.Web.Controllers
 {
+   // [Authorize(Roles = "Admin")]
     public class AppointmentsController : Controller
     {
         private readonly DataContext _context;
@@ -34,7 +36,7 @@ namespace OnSpa.Web.Controllers
                 .Include(a => a.User)
                 .Where(a => a.Date >= DateTime.Today.ToUniversalTime()));
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddDays()
         {
             await _appointmentHelper.AddDaysAsync(7);
