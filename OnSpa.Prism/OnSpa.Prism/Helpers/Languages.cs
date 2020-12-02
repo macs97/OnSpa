@@ -152,10 +152,26 @@ namespace OnSpa.Prism.Helpers
         public static string Customer => Resource.Customer;
         public static string ServiceType => Resource.ServiceType;
         public static string SearchServiceType => Resource.SearchServiceType;
-
         public static string Welcome => Resource.Welcome;
 
-       
+        public static string AssignModifyAppointment => Resource.AssignModifyAppointment;
+
+        public static string Assign => Resource.Assign;
+
+        public static string AppointmentFor => Resource.AppointmentFor;
+
+        public static string ServicePlaceHolder => Resource.ServicePlaceHolder;
+
+        public static string ServiceError => Resource.ServiceError;
+        public static string Confirm => Resource.Confirm;
+        public static string CancelAppointmentMessage => Resource.CancelAppointmentMessage;
+        public static string Yes => Resource.Yes;
+
+        public static string No => Resource.No;
+
+        public static string Service => Resource.Service;
+
+        public static string EmployeeError => Resource.EmployeeError;
 
     }
 

@@ -342,4 +342,43 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to on spa! come and relax</value>
   </data>
+  <data name="AssignModifyAppointment" xml:space="preserve">
+    <value>Assign or modify appointment</value>
+  </data>
+  <data name="Assign" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="AppointmentFor" xml:space="preserve">
+    <value>Appointment</value>
+  </data>
+  <data name="ServicePlaceHolder" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ServiceError" xml:space="preserve">
+    <value>Service error</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="CancelAppointmentMessage" xml:space="preserve">
+    <value>Cancel appointment</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="UserPlaceHolder" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="EmployeeError" xml:space="preserve">
+    <value>Employee error</value>
+  </data>
 </root>

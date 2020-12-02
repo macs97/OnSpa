@@ -22,5 +22,14 @@ namespace OnSpa.Common.Services
 
         Task<Response> RecoverPasswordAsync(string urlBase, string servicePrefix, string controller, EmailRequest emailRequest);
 
+        Task<Response> GetAgendaForCustomer(string urlBase, string servicePrefix, string controller, string email, string tokenType, string accessToken);
+
+        Task<Response> PostAsync<T>(
+           string urlBase,
+           string servicePrefix,
+           string controller,
+           T model,
+           string tokenType,
+           string accessToken);
     }
 }

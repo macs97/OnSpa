@@ -54,5 +54,6 @@ namespace OnSpa.Common.Responses
         public double Latitude { get; set; }
 
         public double Logitude { get; set; }
+
     }
 }

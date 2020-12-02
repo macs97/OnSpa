@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:OnSpa.Prism.Helpers"
+             x:Class="OnSpa.Prism.Views.AssignModifyAppointmentPage"
+             Title="{Binding Title}">
+    <StackLayout
+    	Padding="10">
+
+        <Label
+        	Text="{i18n:Translate AppointmentFor}"/>
+        <Label
+        	FontAttributes="Bold"
+        	FontSize="Medium"
+        	Text="{Binding Appointment.Date, StringFormat='{0:yyyy/MM/dd HH:mm}'}"/>
+
+        <Label
+        	Text="{i18n:Translate Service}"/>
+        <Picker
+        	ItemDisplayBinding="{Binding Name}"
+        	ItemsSource="{Binding Services}"
+        	SelectedItem="{Binding Service}"
+        	Title="{i18n:Translate ServicePlaceHolder}"/>
+
+        <Label
+        	Text="{i18n:Translate Employee}"/>
+        <Picker
+        	ItemDisplayBinding="{Binding FullName}"
+        	ItemsSource="{Binding Users}"
+        	SelectedItem="{Binding User}"
+        	Title="{i18n:Translate UserPlaceHolder}"/>
+
+        <ActivityIndicator
+        	IsRunning="{Binding IsRunning}"
+        	VerticalOptions="CenterAndExpand"/>
+
+        <StackLayout
+        	Orientation="Horizontal">
+
+            <Button
+            	Command="{Binding AssignCommand}"
+            	HorizontalOptions="FillAndExpand"
+            	IsEnabled="{Binding IsEnabled}"
+            	Text="{i18n:Translate Assign}"/>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
