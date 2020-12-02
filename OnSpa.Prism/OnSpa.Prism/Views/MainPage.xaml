@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:OnSpa.Prism.Helpers"
              x:Class="OnSpa.Prism.Views.MainPage"
              BackgroundColor="{StaticResource ColorBackground}"
              Title="{Binding Title}">
 
     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
         <Image Source="logo.PNG" HeightRequest="300" />
-        <Label Text="Welcome to on spa! come and relax" VerticalTextAlignment="Center" />
+        <Label Text="{i18n:Translate Welcome}" VerticalTextAlignment="Center" />
     </StackLayout>
 
 </ContentPage>

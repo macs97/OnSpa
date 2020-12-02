@@ -153,6 +153,9 @@ namespace OnSpa.Prism.Helpers
         public static string ServiceType => Resource.ServiceType;
         public static string SearchServiceType => Resource.SearchServiceType;
 
+        public static string Welcome => Resource.Welcome;
+
+       
 
     }
 

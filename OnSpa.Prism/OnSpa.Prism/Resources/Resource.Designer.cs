@@ -725,5 +725,14 @@ namespace OnSpa.Prism.Resources {
                 return ResourceManager.GetString("ServiceType", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to on spa! come and relax.
+        /// </summary>
+        internal static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
     }
 }

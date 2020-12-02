@@ -339,4 +339,7 @@
   <data name="SearchServiceType" xml:space="preserve">
     <value>Chercher type de service</value>
   </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bienvenue au spa! venez vous détendre!</value>
+  </data>
 </root>
